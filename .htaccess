@@ -1,0 +1,15 @@
+php_flag magic_quotes_gpc off
+
+RewriteEngine on
+
+# Change to the subfolder where your project is located. Must be equal to /config/config.php's SITE_ROOT constant.
+RewriteBase /rsmvc/
+
+RewriteRule ^$ index.php?url=/
+
+# Force trailing slash (301 redirect).
+RewriteCond %{REQUEST_URI} !([a-z0-9-/]+)/$
+RewriteRule ^([a-z0-9-/]+)$ /$1/ [L,R=301]
+
+RewriteCond %{QUERY_STRING} (.*)
+RewriteRule ^([a-z0-9-/]+)$ index.php?%1&url=/$1
