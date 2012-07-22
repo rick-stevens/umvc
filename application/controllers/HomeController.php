@@ -5,18 +5,20 @@
 
 class HomeController extends Controller
 {
-	private $HomeModel = NULL;
-	
+	/*
 	public function __construct()
 	{
-		$this->HomeModel = new HomeModel;
+		parent::__construct();
 	}
+	*/
 	
-	public function index($args = NULL)
+	public function index()
 	{
-		$data['args'] = $args;
-		$data['query'] = $this->HomeModel->get();
+		$homeModel = new HomeModel;
 		
-		$this->view('home', $data);
+		$query = $homeModel->get();
+		$this->vars('query', $query);
+		
+		$this->view('home');
 	}
 }

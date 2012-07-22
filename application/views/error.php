@@ -1,5 +1,6 @@
 <?php include ROOT . '/application/views/includes/header.php'; ?>
 
-<pre><?php var_dump($args, $query); ?></pre>
+<h1>Error</h1>
+<p><?=$errorCode?> <?=$errorText?></p>
 
 <?php include ROOT . '/application/views/includes/footer.php'; ?>

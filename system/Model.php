@@ -3,6 +3,12 @@
  // © 2012 RickStevens.nl //
 ///////////////////////////
 
-abstract class Model
+class Model
 {
+	protected $_db = NULL;
+	
+	public function __construct()
+	{
+		$this->_db = Database::getInstance();
+	}
 }

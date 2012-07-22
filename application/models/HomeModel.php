@@ -5,12 +5,12 @@
 
 class HomeModel extends Model
 {
-	private $_db = NULL;
-	
+	/*
 	public function __construct()
 	{
-		$this->_db = Database::getInstance();
+		parent::__construct();
 	}
+	*/
 	
 	public function get()
 	{

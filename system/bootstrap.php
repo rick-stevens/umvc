@@ -4,6 +4,7 @@
 ///////////////////////////
 
 require_once ROOT . '/config/config.php';
+require_once ROOT . '/system/helper.php';
 
 if (DEVELOPMENT) {
 	error_reporting(E_ALL);
@@ -16,35 +17,11 @@ if (DEVELOPMENT) {
 	ini_set('error_log', ROOT.'/system/tmp/logs/error.log');
 }
 
-function __autoload($className)
-{
-	if (file_exists(ROOT . '/application/controllers/' . $className . '.php')) {
-		require_once(ROOT . '/application/controllers/' . $className . '.php');
-	} else if (file_exists(ROOT . '/application/models/' . $className . '.php')) {
-		require_once(ROOT . '/application/models/'.$className . '.php');
-	} else if (file_exists(ROOT . '/system/' . $className . '.php')) {
-		require_once(ROOT . '/system/' . $className . '.php');
-	}
-}
+$input = dissectUrl($_GET['url']);
 
-// Dissect the url into an array. Fall back to DEFAULT_URL if none is given.
-$url = ($_GET['url'] == '/') ? DEFAULT_URL : $_GET['url'];
-$args = explode('/', trim($url, '/'));
-
-// Force "Controller" appendix, for security purpose.
-$controller = ucfirst($args[0]).'Controller';
-
-// When there's no method called, fall back to $controller::index().
-if (count($args) <= 1) {
-	$method = 'index';
-	$args[] = 'index';
+if (method_exists($input['controller'], $input['method'])) {
+	$callback = new $input['controller']($input['args']);
+	call_user_func(array($callback, $input['method']), $input['args']);
 } else {
-	$method = $args[1];
-}
-
-if (method_exists($controller, $method)) {
-	$callback = new $controller;
-	call_user_func(array($callback, $method), $args);
-} else {
-	die('404');
+	showError(404);
 }

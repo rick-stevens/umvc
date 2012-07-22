@@ -36,7 +36,7 @@ class Database
 		}
 	}
 	
-	public function escape($sql)
+	public function escape($string)
 	{
 		return $this->_connection->real_escape_string($string);
 	}

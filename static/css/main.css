@@ -7,6 +7,10 @@ body {
 	color: #222;
 }
 
+label {
+	cursor: pointer;
+}
+
 div#main {
 	margin: 0 auto;
 	width: 960px;
