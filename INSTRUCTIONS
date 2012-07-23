@@ -2,24 +2,23 @@ RSMVC (beta)
 
 Requirements:
 --------------------------------------------------------------------
- ~ Apache >= 2
- ~ PHP >= 5
- ~ MySQL >= 4.1.13
+ ~ PHP >= 5.1.0 (PDO and object model)
+ ~ MySQL
  ~ Apache's mod_rewrite
 
 
 Setup:
 --------------------------------------------------------------------
- ~ Make /system/tmp/ and any subfolders writable (chmod 777)
+ ~ Make any subfolders of /system/tmp/ writable (chmod 777)
  ~ Edit the config: /config/config.php
 
 
-Code/file conventions:
+Code/filename conventions:
 --------------------------------------------------------------------
 Models
  ~ /application/models/ExampleNameModel.php
  ~ class ExampleNameModel extends Model
- ~ To create a database instance: Database::getInstance()
+ ~ For database reference, use $this->_db
 
 Controllers
  ~ /application/controllers/ExampleNameController.php

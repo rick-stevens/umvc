@@ -9,11 +9,10 @@ class Controller
 	
 	public function __construct()
 	{
-		$input = dissectUrl($_GET['url']);
-		$this->_vars['args'] = $input['args'];
+		$this->_vars['input'] = dissectUrl($_GET['url'], FALSE);
 	}
 	
-	public function vars($varName, $varValue = NULL)
+	protected function vars($varName, $varValue = NULL)
 	{
 		if ($varValue === NULL) {
 			return $this->_vars[$varName];
@@ -22,18 +21,18 @@ class Controller
 		}
 	}
 	
-	public function view($view, $print = TRUE)
+	protected function view($view, $print = TRUE)
 	{
-		if (file_exists(ROOT . 'application/views/' . $view . '.php')) {
+		if (file_exists(ROOT . '/application/views/' . $view . '.php')) {
 			extract($this->_vars);
 			
 			if ($print) {
 				// Print the view.
-				require ROOT . 'application/views/' . $view . '.php';
+				require ROOT . '/application/views/' . $view . '.php';
 			} else {
 				// Or use an output buffer to return the view.
 				ob_start();
-				require ROOT . 'application/views/' . $view . '.php';
+				require ROOT . '/application/views/' . $view . '.php';
 				$output = ob_get_contents();
 				ob_end_clean();
 				

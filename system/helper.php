@@ -5,27 +5,43 @@
 
 function __autoload($className)
 {
-	if (file_exists(ROOT . 'application/controllers/' . $className . '.php')) {
-		require_once(ROOT . 'application/controllers/' . $className . '.php');
-	} else if (file_exists(ROOT . 'application/models/' . $className . '.php')) {
-		require_once(ROOT . 'application/models/'.$className . '.php');
-	} else if (file_exists(ROOT . 'system/' . $className . '.php')) {
-		require_once(ROOT . 'system/' . $className . '.php');
+	if (file_exists(ROOT . '/application/controllers/' . $className . '.php')) {
+		require_once(ROOT . '/application/controllers/' . $className . '.php');
+	} else if (file_exists(ROOT . '/application/models/' . $className . '.php')) {
+		require_once(ROOT . '/application/models/'.$className . '.php');
+	} else if (file_exists(ROOT . '/system/' . $className . '.php')) {
+		require_once(ROOT . '/system/' . $className . '.php');
 	}
 }
 
 // Dissect the url into an array.
-function dissectURL($url)
+function dissectURL($url, $allowRedirect = TRUE)
 {
-	// Fall back to DEFAULT_CONTROLLER if none is given.
-	$defaultUrl = '/' . strtolower(preg_replace('/Controller/', '', DEFAULT_CONTROLLER, 1)) . '/';
-	$realUrl = ($url == '/') ? $defaultUrl : $url;
+	$realUrl = $url;
+	
+	// Compare routes against the URL.
+	foreach ($GLOBALS['routes'] as $route) {
+		// Escape slashes and force start to end match.
+		$pattern = '/^' . str_replace('/', '\/', $route[0]) . '$/';
+		if (preg_match($pattern, $url)) {
+			// Found a match.
+			// Check for redirect.
+			if ($allowRedirect && isset($route[2]) && $route[2]) {
+				if (isset($route[3])) redirect($route[1], $route[3]);
+				else redirect($route[1]);
+			}
+			
+			$realUrl = preg_replace($pattern, $route[1], $url);
+			break;
+		}
+	}
+	
 	$args = explode('/', trim($realUrl, '/'));
 	
 	// Force "Controller" appendix for security purpose.
 	$controller = ucfirst(array_shift($args)) . 'Controller';
 	
-	// When there's no method input, fall back to $controller->index().
+	// When there's no method called, fall back to $controller->index().
 	$method = (count($args) < 1) ? 'index' : array_shift($args);
 	
 	return array(
@@ -38,7 +54,7 @@ function dissectURL($url)
 }
 
 // Print an error page.
-function showError($errorCode)
+function showError($errorCode, $message)
 {
 	$errorCodes = array(
 		200	=> 'OK',
@@ -84,9 +100,9 @@ function showError($errorCode)
 
 	$errorText = $errorCodes[$errorCode];
 
-	header("HTTP/1.1 {$errorCode} {$errorText}", TRUE, $errorCode);
+	header("HTTP/1.0 {$errorCode} {$errorText}", TRUE, $errorCode);
 	
-	require ROOT . 'application/views/error.php';
+	require ROOT . '/application/views/error.php';
 	
 	exit;
 }
