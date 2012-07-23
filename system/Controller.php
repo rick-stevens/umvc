@@ -24,16 +24,16 @@ class Controller
 	
 	public function view($view, $print = TRUE)
 	{
-		if (file_exists(ROOT . '/application/views/' . $view . '.php')) {
+		if (file_exists(ROOT . 'application/views/' . $view . '.php')) {
 			extract($this->_vars);
 			
 			if ($print) {
 				// Print the view.
-				require ROOT . '/application/views/' . $view . '.php';
+				require ROOT . 'application/views/' . $view . '.php';
 			} else {
 				// Or use an output buffer to return the view.
 				ob_start();
-				require ROOT . '/application/views/' . $view . '.php';
+				require ROOT . 'application/views/' . $view . '.php';
 				$output = ob_get_contents();
 				ob_end_clean();
 				

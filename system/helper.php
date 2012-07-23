@@ -5,12 +5,12 @@
 
 function __autoload($className)
 {
-	if (file_exists(ROOT . '/application/controllers/' . $className . '.php')) {
-		require_once(ROOT . '/application/controllers/' . $className . '.php');
-	} else if (file_exists(ROOT . '/application/models/' . $className . '.php')) {
-		require_once(ROOT . '/application/models/'.$className . '.php');
-	} else if (file_exists(ROOT . '/system/' . $className . '.php')) {
-		require_once(ROOT . '/system/' . $className . '.php');
+	if (file_exists(ROOT . 'application/controllers/' . $className . '.php')) {
+		require_once(ROOT . 'application/controllers/' . $className . '.php');
+	} else if (file_exists(ROOT . 'application/models/' . $className . '.php')) {
+		require_once(ROOT . 'application/models/'.$className . '.php');
+	} else if (file_exists(ROOT . 'system/' . $className . '.php')) {
+		require_once(ROOT . 'system/' . $className . '.php');
 	}
 }
 
@@ -18,19 +18,19 @@ function __autoload($className)
 function dissectURL($url)
 {
 	// Fall back to DEFAULT_CONTROLLER if none is given.
-	$default_url = '/' . strtolower(preg_replace('/Controller/', '', DEFAULT_CONTROLLER, 1)) . '/';
-	$url = ($url == '/') ? $default_url : $url;
-	$args = explode('/', trim($url, '/'));
+	$defaultUrl = '/' . strtolower(preg_replace('/Controller/', '', DEFAULT_CONTROLLER, 1)) . '/';
+	$realUrl = ($url == '/') ? $defaultUrl : $url;
+	$args = explode('/', trim($realUrl, '/'));
 	
 	// Force "Controller" appendix for security purpose.
 	$controller = ucfirst(array_shift($args)) . 'Controller';
 	
-	// When there's no method given, fall back to $controller->index().
+	// When there's no method input, fall back to $controller->index().
 	$method = (count($args) < 1) ? 'index' : array_shift($args);
 	
-	if (empty($args)) $args = NULL;
-	
 	return array(
+		'url' => $url,
+		'real_url' => $realUrl,
 		'controller' => $controller,
 		'method' => $method,
 		'args' => $args
@@ -86,7 +86,14 @@ function showError($errorCode)
 
 	header("HTTP/1.1 {$errorCode} {$errorText}", TRUE, $errorCode);
 	
-	require ROOT . '/application/views/error.php';
+	require ROOT . 'application/views/error.php';
 	
+	exit;
+}
+
+// Create an instant HTTP redirect.
+function redirect($location, $code = 302)
+{
+	header('Location: ' . SITE_ROOT . $location, TRUE, $code);
 	exit;
 }

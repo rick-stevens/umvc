@@ -1,5 +1,13 @@
 RSMVC (beta)
 
+Requirements:
+--------------------------------------------------------------------
+ ~ Apache >= 2
+ ~ PHP >= 5
+ ~ MySQL >= 4.1.13
+ ~ Apache's mod_rewrite
+
+
 Setup:
 --------------------------------------------------------------------
  ~ Make /system/tmp/ and any subfolders writable (chmod 777)

@@ -2,12 +2,12 @@ php_flag magic_quotes_gpc off
 
 RewriteEngine on
 
-# Change to the subfolder where your project is located. Must be equal to /config/config.php's SITE_ROOT.
+# Change to the subfolder where your project is located.
 RewriteBase /
 
 RewriteRule ^$ index.php?url=/
 
-# Force trailing slash (301 redirect).
+# Force trailing slash (permanent redirect).
 RewriteCond %{REQUEST_URI} !([a-z0-9-/]+)/$
 RewriteRule ^([a-z0-9-/]+)$ /$1/ [L,R=301]
 

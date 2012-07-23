@@ -9,11 +9,11 @@ define('DEVELOPMENT', TRUE);
 // The fallback controller if none is specified.
 define('DEFAULT_CONTROLLER', 'HomeController');
 
-// For use in HTML, by default "/". Must be equal to /.htaccess' RewriteBase.
+// Optionally change to http://www.example.com/ (+ subfolder).
 define('SITE_ROOT', '/');
 
 // (using the MySQLi extension)
 define('DB_HOST', 'localhost');
-define('DB_DATABASE', 'test');
-define('DB_USERNAME', 'test');
-define('DB_PASSWORD', 'test');
+define('DB_DATABASE', '');
+define('DB_USERNAME', '');
+define('DB_PASSWORD', '');
