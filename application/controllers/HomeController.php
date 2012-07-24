@@ -19,7 +19,7 @@ class HomeController extends Controller
 		$query = $homeModel->get();
 		
 		$this->view->set('query', $query);
-		$this->view->display('homee.php');
+		$this->view->display('home.php');
 		
 		// Or with Smarty:
 		#$this->smarty->assign('query', $query);
