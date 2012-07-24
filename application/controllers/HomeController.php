@@ -12,13 +12,17 @@ class HomeController extends Controller
 	}
 	*/
 	
-	public function index()
+	public function index(/* $arg1 = NULL, $arg2 = NULL, etc. */)
 	{
 		$homeModel = new HomeModel;
 		
 		$query = $homeModel->get();
-		$this->view->set('query', $query);
 		
-		$this->view->display('home');
+		$this->view->set('query', $query);
+		$this->view->display('homee.php');
+		
+		// Or with Smarty:
+		#$this->smarty->assign('query', $query);
+		#$this->smarty->display('home.tpl');
 	}
 }

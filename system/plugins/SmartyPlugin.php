@@ -16,6 +16,6 @@ class SmartyPlugin extends Smarty
 		
 		$this->addPluginsDir(ROOT . 'system/plugins/smarty/plugins/');
 		
-		$this->assign('input', dissectUrl(@$_GET['url'], FALSE));
+		$this->assign('input', Helper::dissectUrl(@$_GET['url'], FALSE));
 	}
 }

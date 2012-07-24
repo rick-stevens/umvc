@@ -22,9 +22,7 @@ Models
 Controllers
  ~ /application/controllers/ExampleNameController.php
  ~ class ExampleNameController extends Controller
-
-Views
- ~ /application/views/example_name.php
+ ~ For view reference, use $this->view (or $this->smarty if enabled)
 
 URLs
  ~ URL's may only contain lowercase alphanumeric characters, dashes and forward slashes

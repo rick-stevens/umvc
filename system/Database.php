@@ -27,7 +27,7 @@ final class Database
 				array(PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES utf8')
 			);
 		} catch (Exception $e) {
-			die('Database error: ' . $e->getMessage());
+			Helper::showErrorPage(500, 'Database error: ' . $e->getMessage());
 		}
 	}
 }

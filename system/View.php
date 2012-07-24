@@ -9,7 +9,7 @@ final class View
 	
 	public function __construct()
 	{
-		$this->_vars['input'] = dissectUrl(@$_GET['url'], FALSE);
+		$this->_vars['input'] = Helper::dissectUrl(@$_GET['url'], FALSE);
 	}
 	
 	public function get($varName)
@@ -24,28 +24,28 @@ final class View
 	
 	public function fetch($view)
 	{
-		if (file_exists(ROOT . 'application/views/' . $view . '.php')) {
+		if (file_exists(ROOT . 'application/views/' . $view)) {
 			extract($this->_vars);
 			
 			ob_start();
-			require ROOT . 'application/views/' . $view . '.php';
+			require ROOT . 'application/views/' . $view;
 			$output = ob_get_contents();
 			ob_end_clean();
 			
 			return $output;
 		} else {
-			die('Error: view ' . $view . ' not found');
+			Helper::showErrorPage(500, 'View ' . $view . ' cannot be found.');
 		}
 	}
 	
 	public function display($view)
 	{
-		if (file_exists(ROOT . 'application/views/' . $view . '.php')) {
+		if (file_exists(ROOT . 'application/views/' . $view)) {
 			extract($this->_vars);
 			
-			require ROOT . 'application/views/' . $view . '.php';
+			require ROOT . 'application/views/' . $view;
 		} else {
-			die('Error: view ' . $view . ' not found');
+			Helper::showErrorPage(500, 'View ' . $view . ' cannot be found.');
 		}
 	}
 }

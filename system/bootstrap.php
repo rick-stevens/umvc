@@ -4,7 +4,6 @@
 //////////////////////////
 
 require_once ROOT . 'configs/config.php';
-require_once ROOT . 'system/helper.php';
 
 if (DEVELOPMENT) {
 	error_reporting(E_ALL);
@@ -17,11 +16,28 @@ if (DEVELOPMENT) {
 	ini_set('error_log', ROOT . 'system/tmp/logs/error.log');
 }
 
-$input = dissectUrl(@$_GET['url']);
+function __autoload($className)
+{
+	$directories = array(
+		ROOT . 'application/controllers/',
+		ROOT . 'application/models/',
+		ROOT . 'system/',
+		ROOT . 'system/plugins/'
+	);
+	
+	foreach ($directories as $dir) {
+		if (file_exists($dir . $className . '.php')) {
+			require_once($dir . $className . '.php');
+			return;
+		}
+	}
+}
+
+$input = Helper::dissectUrl(@$_GET['url']);
 
 if (method_exists($input['controller'], $input['method'])) {
 	$controller = new $input['controller'];
-	call_user_func(array($controller, $input['method']), $input['args']);
+	call_user_func_array(array($controller, $input['method']), $input['args']);
 } else {
-	showError(404, 'The page you were looking for cannot be found.');
+	Helper::showErrorPage(404, 'The page you were looking for cannot be found.');
 }
