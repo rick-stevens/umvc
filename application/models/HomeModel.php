@@ -1,7 +1,7 @@
 <?php
-  ///////////////////////////
- // © 2012 RickStevens.nl //
-///////////////////////////
+  //////////////////////////
+ // rsmvc.googlecode.com //
+//////////////////////////
 
 class HomeModel extends Model
 {
@@ -14,7 +14,7 @@ class HomeModel extends Model
 	
 	public function get()
 	{
-		return $this->_db->query("
+		return $this->pdo->query("
 			SELECT *
 			FROM `test`
 		");

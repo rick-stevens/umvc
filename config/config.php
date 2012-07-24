@@ -1,7 +1,7 @@
 <?php
-  ///////////////////////////
- // © 2012 RickStevens.nl //
-///////////////////////////
+  //////////////////////////
+ // rsmvc.googlecode.com //
+//////////////////////////
 
 // TRUE: display_errors, FALSE: log_errors.
 define('DEVELOPMENT', TRUE);
@@ -9,11 +9,11 @@ define('DEVELOPMENT', TRUE);
 // Optionally change to http://www.example.com (+ subfolder). NO trailing slash!
 define('SITE_ROOT', '');
 
-// (using MySQL through PDO)
+// (using MySQL through PDO by default)
 define('DB_HOST', 'localhost');
-define('DB_DATABASE', '');
-define('DB_USERNAME', '');
-define('DB_PASSWORD', '');
+define('DB_DATABASE', 'test');
+define('DB_USERNAME', 'test');
+define('DB_PASSWORD', 'test');
 
 // Routes: array( $pattern , $replacement [, $redirect = FALSE [, $code = 302]] )
 $GLOBALS['routes'][] = array('/', '/home/');

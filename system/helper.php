@@ -1,16 +1,20 @@
 <?php
-  ///////////////////////////
- // © 2012 RickStevens.nl //
-///////////////////////////
+  //////////////////////////
+ // rsmvc.googlecode.com //
+//////////////////////////
 
 function __autoload($className)
 {
-	if (file_exists(ROOT . '/application/controllers/' . $className . '.php')) {
-		require_once(ROOT . '/application/controllers/' . $className . '.php');
-	} else if (file_exists(ROOT . '/application/models/' . $className . '.php')) {
-		require_once(ROOT . '/application/models/'.$className . '.php');
-	} else if (file_exists(ROOT . '/system/' . $className . '.php')) {
-		require_once(ROOT . '/system/' . $className . '.php');
+	$directories = array(
+		ROOT . '/application/controllers/',
+		ROOT . '/application/models/',
+		ROOT . '/system/'
+	);
+	
+	foreach ($directories as $dir) {
+		if (file_exists($dir . $className . '.php')) {
+			require_once($dir . $className . '.php');
+		}
 	}
 }
 
@@ -21,11 +25,10 @@ function dissectURL($url, $allowRedirect = TRUE)
 	
 	// Compare routes against the URL.
 	foreach ($GLOBALS['routes'] as $route) {
-		// Escape slashes and force start to end match.
+		// Escape slashes and force start-to-end match.
 		$pattern = '/^' . str_replace('/', '\/', $route[0]) . '$/';
 		if (preg_match($pattern, $url)) {
-			// Found a match.
-			// Check for redirect.
+			// Found a match. Check for a redirect.
 			if ($allowRedirect && isset($route[2]) && $route[2]) {
 				if (isset($route[3])) redirect($route[1], $route[3]);
 				else redirect($route[1]);

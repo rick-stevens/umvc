@@ -3,7 +3,6 @@ RSMVC (beta)
 Requirements:
 --------------------------------------------------------------------
  ~ PHP >= 5.1.0 (PDO and object model)
- ~ MySQL
  ~ Apache's mod_rewrite
 
 
@@ -13,12 +12,12 @@ Setup:
  ~ Edit the config: /config/config.php
 
 
-Code/filename conventions:
+Code/filename convention:
 --------------------------------------------------------------------
 Models
  ~ /application/models/ExampleNameModel.php
  ~ class ExampleNameModel extends Model
- ~ For database reference, use $this->_db
+ ~ For database reference, use $this->pdo
 
 Controllers
  ~ /application/controllers/ExampleNameController.php
@@ -28,4 +27,4 @@ Views
  ~ /application/views/example_name.php
 
 URLs
- ~ URL's may only contain lowercase alphanumeric characters, - and /
+ ~ URL's may only contain lowercase alphanumeric characters, dashes and forward slashes

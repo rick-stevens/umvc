@@ -1,14 +1,14 @@
 <?php
-  ///////////////////////////
- // © 2012 RickStevens.nl //
-///////////////////////////
+  //////////////////////////
+ // rsmvc.googlecode.com //
+//////////////////////////
 
 class Model
 {
-	protected $_db = NULL;
+	public $pdo = NULL;
 	
 	public function __construct()
 	{
-		$this->_db = Database::getInstance();
+		$this->pdo = Database::getInstance()->pdo;
 	}
 }

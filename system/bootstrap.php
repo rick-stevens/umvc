@@ -1,7 +1,7 @@
 <?php
-  ///////////////////////////
- // © 2012 RickStevens.nl //
-///////////////////////////
+  //////////////////////////
+ // rsmvc.googlecode.com //
+//////////////////////////
 
 require_once ROOT . '/config/config.php';
 require_once ROOT . '/system/helper.php';
