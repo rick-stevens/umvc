@@ -11,9 +11,9 @@ define('SITE_ROOT', '');
 
 // (using MySQL through PDO by default)
 define('DB_HOST', 'localhost');
-define('DB_DATABASE', 'test');
-define('DB_USERNAME', 'test');
-define('DB_PASSWORD', 'test');
+define('DB_DATABASE', '');
+define('DB_USERNAME', '');
+define('DB_PASSWORD', '');
 
 // Routes: array( $pattern , $replacement [, $redirect = FALSE [, $code = 302]] )
 $GLOBALS['routes'][] = array('/', '/home/');

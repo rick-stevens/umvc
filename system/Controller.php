@@ -3,10 +3,12 @@
  // rsmvc.googlecode.com //
 //////////////////////////
 
-class Controller extends View
+class Controller
 {
+	public $view = NULL;
+	
 	public function __construct()
 	{
-		parent::__construct();
+		$this->view = new View;
 	}
 }

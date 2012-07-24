@@ -3,7 +3,7 @@
  // rsmvc.googlecode.com //
 //////////////////////////
 
-class View
+final class View
 {
 	private $_vars = array();
 	
@@ -12,32 +12,38 @@ class View
 		$this->_vars['input'] = dissectUrl($_GET['url'], FALSE);
 	}
 	
-	public function vars($varName, $varValue = NULL)
+	public function get($varName)
 	{
-		if ($varValue === NULL) {
-			return $this->_vars[$varName];
-		} else {
-			return ($this->_vars[$varName] = $varValue);
-		}
+		return $this->_vars[$varName];
 	}
 	
-	public function view($view, $print = TRUE)
+	public function set($varName, $varValue)
+	{
+		return ($this->_vars[$varName] = $varValue);
+	}
+	
+	public function fetch($view)
 	{
 		if (file_exists(ROOT . '/application/views/' . $view . '.php')) {
 			extract($this->_vars);
 			
-			if ($print) {
-				// Print the view.
-				require ROOT . '/application/views/' . $view . '.php';
-			} else {
-				// Or use an output buffer to return the view.
-				ob_start();
-				require ROOT . '/application/views/' . $view . '.php';
-				$output = ob_get_contents();
-				ob_end_clean();
-				
-				return $output;
-			}
+			ob_start();
+			require ROOT . '/application/views/' . $view . '.php';
+			$output = ob_get_contents();
+			ob_end_clean();
+			
+			return $output;
+		} else {
+			die('Error: view ' . $view . ' not found');
+		}
+	}
+	
+	public function display($view)
+	{
+		if (file_exists(ROOT . '/application/views/' . $view . '.php')) {
+			extract($this->_vars);
+			
+			require ROOT . '/application/views/' . $view . '.php';
 		} else {
 			die('Error: view ' . $view . ' not found');
 		}
