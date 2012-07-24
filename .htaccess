@@ -5,11 +5,9 @@ RewriteEngine on
 # Change to the subfolder where your project is located.
 RewriteBase /
 
-RewriteRule ^$ index.php?url=/
-
 # Force trailing slash (permanent redirect).
 RewriteCond %{REQUEST_URI} !([a-z0-9-/]+)/$
 RewriteRule ^([a-z0-9-/]+)$ /$1/ [L,R=301]
 
 RewriteCond %{QUERY_STRING} (.*)
-RewriteRule ^([a-z0-9-/]+)$ index.php?%1&url=/$1
+RewriteRule ^([a-z0-9-/]+)$ index.php?%1&url=$1

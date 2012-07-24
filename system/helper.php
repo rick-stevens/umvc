@@ -6,9 +6,10 @@
 function __autoload($className)
 {
 	$directories = array(
-		ROOT . '/application/controllers/',
-		ROOT . '/application/models/',
-		ROOT . '/system/'
+		ROOT . 'application/controllers/',
+		ROOT . 'application/models/',
+		ROOT . 'system/',
+		ROOT . 'system/plugins/'
 	);
 	
 	foreach ($directories as $dir) {
@@ -48,8 +49,8 @@ function dissectURL($url, $allowRedirect = TRUE)
 	$method = (count($args) < 1) ? 'index' : array_shift($args);
 	
 	return array(
-		'url' => $url,
-		'real_url' => $realUrl,
+		'url' => SITE_ROOT . $url,
+		'real_url' => SITE_ROOT . $realUrl,
 		'controller' => $controller,
 		'method' => $method,
 		'args' => $args
@@ -105,7 +106,7 @@ function showError($errorCode, $message)
 
 	header("HTTP/1.0 {$errorCode} {$errorText}", TRUE, $errorCode);
 	
-	require ROOT . '/application/views/error.php';
+	require ROOT . 'application/views/error.php';
 	
 	exit;
 }

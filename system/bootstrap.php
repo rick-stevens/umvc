@@ -3,8 +3,8 @@
  // rsmvc.googlecode.com //
 //////////////////////////
 
-require_once ROOT . '/config/config.php';
-require_once ROOT . '/system/helper.php';
+require_once ROOT . 'configs/config.php';
+require_once ROOT . 'system/helper.php';
 
 if (DEVELOPMENT) {
 	error_reporting(E_ALL);
@@ -14,10 +14,10 @@ if (DEVELOPMENT) {
 	error_reporting(E_ALL);
 	ini_set('display_errors', 'Off');
 	ini_set('log_errors', 'On');
-	ini_set('error_log', ROOT . '/system/tmp/logs/error.log');
+	ini_set('error_log', ROOT . 'system/tmp/logs/error.log');
 }
 
-$input = dissectUrl($_GET['url']);
+$input = dissectUrl(@$_GET['url']);
 
 if (method_exists($input['controller'], $input['method'])) {
 	$controller = new $input['controller'];
