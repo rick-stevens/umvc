@@ -13,7 +13,7 @@ class SmartyPlugin extends Smarty
 		
 		$this->setTemplateDir(ROOT . 'app/views/');
 		$this->setCompileDir(ROOT . 'app/plugins/smarty/templates_c/');
-		$this->setCacheDir(ROOT . 'app/plugins/smarty/smarty/cache/');
+		$this->setCacheDir(ROOT . 'app/plugins/smarty/cache/');
 		$this->setConfigDir(ROOT . 'configs/');
 		
 		$this->addPluginsDir(ROOT . 'app/plugins/smarty/plugins/');

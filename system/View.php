@@ -33,9 +33,8 @@ final class View
 			ob_end_clean();
 			
 			return $output;
-		} else {
+		} else
 			Helper::showErrorPage(500, 'View ' . $view . ' cannot be found.');
-		}
 	}
 	
 	public function display($view)
@@ -44,8 +43,7 @@ final class View
 			extract($this->_vars);
 			
 			require ROOT . 'app/views/' . $view;
-		} else {
+		} else
 			Helper::showErrorPage(500, 'View ' . $view . ' cannot be found.');
-		}
 	}
 }

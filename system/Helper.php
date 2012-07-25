@@ -60,7 +60,7 @@ final class Helper
 	}
 	
 	// Print an error page.
-	public static function showErrorPage($errorCode, $message)
+	public static function showErrorPage($errorCode, $message = '')
 	{
 		$errorCodes = array(
 			200	=> 'OK',

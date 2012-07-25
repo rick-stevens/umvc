@@ -8,9 +8,8 @@
 		echo "\n" . $query->rowCount() . ' rows:';
 		
 		// Even though $query is an object, it can be iterated as an array:
-		foreach($query as $row) {
-			echo "\n" . $row['id'] . ' ' . htmlspecialchars($row['name']);
-		}
+		foreach($query as $row)
+			echo "\n" . $row['id'] . ' - ' . htmlspecialchars($row['name']);
 	}
 ?></pre>
 

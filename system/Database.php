@@ -10,9 +10,8 @@ final class Database
 	
 	public static function getInstance()
 	{
-		if ( ! isset(self::$_instance)) {
+		if ( ! isset(self::$_instance))
 			self::$_instance = new Database;
-		}
 		
 		return self::$_instance;
 	}
