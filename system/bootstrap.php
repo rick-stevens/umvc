@@ -3,7 +3,7 @@
  // rsmvc.googlecode.com //
 //////////////////////////
 
-require_once ROOT . 'configs/config.php';
+require_once ROOT . 'app/configs/config.php';
 
 if (DEVELOPMENT) {
 	error_reporting(E_ALL);
