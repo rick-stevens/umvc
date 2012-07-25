@@ -32,10 +32,13 @@ function __autoload($className)
 		}
 }
 
-$input = Helper::dissectUrl(@$_GET['url']);
+if (isset($_GET['error_page']))
+	Helper::showErrorPage((int)$_GET['error_page']);
+
+$input = Helper::setInput(@$_GET['url']);
 
 if (method_exists($input['controller'], $input['method'])) {
 	$controller = new $input['controller'];
 	call_user_func_array(array($controller, $input['method']), $input['args']);
 } else
-	Helper::showErrorPage(404, 'The page you were looking for cannot be found.');
+	Helper::showErrorPage(404);

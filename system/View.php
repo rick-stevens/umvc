@@ -9,7 +9,7 @@ final class View
 	
 	public function __construct()
 	{
-		$this->_vars['input'] = Helper::dissectUrl(@$_GET['url'], FALSE);
+		$this->_vars['input'] = Helper::getInput();
 	}
 	
 	public function get($varName)
