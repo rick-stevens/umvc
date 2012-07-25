@@ -3,6 +3,8 @@
  // rsmvc.googlecode.com //
 //////////////////////////
 
+require_once SMARTY_DIR . 'Smarty.class.php';
+
 class SmartyPlugin extends Smarty
 {
 	public function __construct()

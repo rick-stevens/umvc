@@ -3,6 +3,7 @@
  // rsmvc.googlecode.com //
 //////////////////////////
 
+// Example model.
 class HomeModel extends Model
 {
 	/*

@@ -3,6 +3,7 @@
  // rsmvc.googlecode.com //
 //////////////////////////
 
+// Example Controller.
 class HomeController extends Controller
 {
 	/*
@@ -22,7 +23,7 @@ class HomeController extends Controller
 		$this->view->display('home.php');
 		
 		// Or with Smarty:
-		#$this->smarty->assign('query', $query);
-		#$this->smarty->display('home.tpl');
+		#$this->view->assign('query', $query);
+		#$this->view->display('home.tpl');
 	}
 }

@@ -38,6 +38,5 @@ $input = Helper::dissectUrl(@$_GET['url']);
 if (method_exists($input['controller'], $input['method'])) {
 	$controller = new $input['controller'];
 	call_user_func_array(array($controller, $input['method']), $input['args']);
-} else {
+} else
 	Helper::showErrorPage(404, 'The page you were looking for cannot be found.');
-}

@@ -15,9 +15,10 @@ define('DB_DATABASE', 'test');
 define('DB_USERNAME', '');
 define('DB_PASSWORD', '');
 
-// Change to enable Smarty instead of View.
-#define('SMARTY_DIR', '/usr/local/lib/Smarty-v.e.r/libs/');
-
 // Routes: array( $pattern , $replacement [, $redirect = FALSE [, $code = 302]] )
 $GLOBALS['routes'][] = array('', 'home/');
 #$GLOBALS['routes'][] = array('u/([a-z0-9-]+)/', 'users/user/$1/'); // Dynamic example.
+
+// Change to enable Smarty instead of the default View class.
+#define('VIEW_PLUGIN', 'SmartyPlugin');
+#define('SMARTY_DIR', '/usr/local/lib/Smarty-v.e.r/libs/');

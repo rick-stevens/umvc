@@ -16,11 +16,14 @@ final class Helper
 		foreach ($GLOBALS['routes'] as $route) {
 			// Escape slashes and force start-to-end match.
 			$pattern = '/^' . str_replace('/', '\/', $route[0]) . '$/';
+			
 			if (preg_match($pattern, $url)) {
 				// Found a match. Check for a redirect.
 				if ($allowRedirect && isset($route[2]) && $route[2]) {
-					if (isset($route[3])) self::redirect($route[1], $route[3]);
-					else self::redirect($route[1]);
+					if (isset($route[3]))
+						self::redirect($route[1], $route[3]);
+					else
+						self::redirect($route[1]);
 				}
 				
 				$realUrl = preg_replace($pattern, $route[1], $url);
@@ -34,7 +37,11 @@ final class Helper
 		$controller = ucfirst(array_shift($args)) . 'Controller';
 		
 		// When there's no method called, fall back to $controller->index().
-		$method = (count($args) < 1) ? 'index' : array_shift($args);
+		if (count($args) < 1) {
+			$method = 'index';
+			$realUrl .= 'index/';
+		} else
+			$method = array_shift($args);
 		
 		return array(
 			'url' => HTTP_ROOT . $url,
