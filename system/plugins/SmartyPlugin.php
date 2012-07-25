@@ -9,7 +9,7 @@ class SmartyPlugin extends Smarty
 	{
 		parent::__construct;
 		
-		$this->setTemplateDir(ROOT . 'application/views/');
+		$this->setTemplateDir(ROOT . 'app/views/');
 		$this->setCompileDir(ROOT . 'system/tmp/smarty/templates_c/');
 		$this->setCacheDir(ROOT . 'system/tmp/smarty/cache/');
 		$this->setConfigDir(ROOT . 'configs/');

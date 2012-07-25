@@ -5,9 +5,7 @@
 
 final class Helper
 {
-	private function __construct()
-	{
-	}
+	private function __construct() {}
 	
 	// Dissect the url into an array.
 	public static function dissectURL($url, $allowRedirect = TRUE)
@@ -103,7 +101,7 @@ final class Helper
 	
 		header("HTTP/1.0 {$errorCode} {$errorText}", TRUE, $errorCode);
 		
-		require ROOT . 'application/views/error.php';
+		require ROOT . 'app/views/error.php';
 		
 		exit;
 	}

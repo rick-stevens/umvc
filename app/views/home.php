@@ -1,4 +1,4 @@
-<?php include ROOT . 'application/views/includes/header.php'; ?>
+<?php include ROOT . 'app/views/includes/header.php'; ?>
 
 <pre><?php
 	// $input (array) will be populated with info gathered from the URL.
@@ -14,4 +14,4 @@
 	}
 ?></pre>
 
-<?php include ROOT . 'application/views/includes/footer.php'; ?>
+<?php include ROOT . 'app/views/includes/footer.php'; ?>

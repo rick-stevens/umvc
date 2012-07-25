@@ -24,11 +24,11 @@ final class View
 	
 	public function fetch($view)
 	{
-		if (file_exists(ROOT . 'application/views/' . $view)) {
+		if (file_exists(ROOT . 'app/views/' . $view)) {
 			extract($this->_vars);
 			
 			ob_start();
-			require ROOT . 'application/views/' . $view;
+			require ROOT . 'app/views/' . $view;
 			$output = ob_get_contents();
 			ob_end_clean();
 			
@@ -40,10 +40,10 @@ final class View
 	
 	public function display($view)
 	{
-		if (file_exists(ROOT . 'application/views/' . $view)) {
+		if (file_exists(ROOT . 'app/views/' . $view)) {
 			extract($this->_vars);
 			
-			require ROOT . 'application/views/' . $view;
+			require ROOT . 'app/views/' . $view;
 		} else {
 			Helper::showErrorPage(500, 'View ' . $view . ' cannot be found.');
 		}

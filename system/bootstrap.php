@@ -19,8 +19,8 @@ if (DEVELOPMENT) {
 function __autoload($className)
 {
 	$directories = array(
-		ROOT . 'application/controllers/',
-		ROOT . 'application/models/',
+		ROOT . 'app/controllers/',
+		ROOT . 'app/models/',
 		ROOT . 'system/',
 		ROOT . 'system/plugins/'
 	);
