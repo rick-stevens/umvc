@@ -12,8 +12,8 @@ class SmartyPlugin extends Smarty
 		parent::__construct;
 		
 		$this->setTemplateDir(ROOT . 'app/views/');
-		$this->setCompileDir(ROOT . 'system/tmp/smarty/templates_c/');
-		$this->setCacheDir(ROOT . 'system/tmp/smarty/cache/');
+		$this->setCompileDir(ROOT . 'app/plugins/smarty/templates_c/');
+		$this->setCacheDir(ROOT . 'app/plugins/smarty/smarty/cache/');
 		$this->setConfigDir(ROOT . 'configs/');
 		
 		$this->addPluginsDir(ROOT . 'app/plugins/smarty/plugins/');

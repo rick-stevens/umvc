@@ -10,7 +10,7 @@ if (DEVELOPMENT) {
 	ini_set('display_errors', 'On');
 	ini_set('log_errors', 'Off');
 } else {
-	error_reporting(E_ALL);
+	error_reporting(E_ALL ^ E_NOTICE);
 	ini_set('display_errors', 'Off');
 	ini_set('log_errors', 'On');
 	ini_set('error_log', ROOT . 'system/tmp/logs/error.log');
@@ -25,12 +25,11 @@ function __autoload($className)
 		ROOT . 'system/'
 	);
 	
-	foreach ($directories as $dir) {
+	foreach ($directories as $dir)
 		if (file_exists($dir . $className . '.php')) {
 			require_once($dir . $className . '.php');
 			return;
 		}
-	}
 }
 
 $input = Helper::dissectUrl(@$_GET['url']);
