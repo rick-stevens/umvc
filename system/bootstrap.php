@@ -16,7 +16,7 @@ if (DEVELOPMENT) {
 	ini_set('error_log', ROOT . 'system/tmp/logs/error.log');
 }
 
-function __autoload($className)
+spl_autoload_register(function ($className)
 {
 	$directories = array(
 		ROOT . 'app/controllers/',
@@ -30,7 +30,7 @@ function __autoload($className)
 			require_once($dir . $className . '.php');
 			return;
 		}
-}
+});
 
 // Handle error documents.
 if (isset($_GET['error_page']) && array_key_exists((int)$_GET['error_page'], Helper::$statusCodes))

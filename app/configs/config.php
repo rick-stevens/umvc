@@ -21,4 +21,4 @@ $GLOBALS['routes'][] = array('', 'home/');
 
 // Change to enable Smarty instead of the default View class.
 #define('VIEW_PLUGIN', 'SmartyPlugin');
-#define('SMARTY_DIR', '/usr/local/lib/Smarty-v.e.r/libs/');
+#define('SMARTY_DIR', '/path/to/Smarty-v.e.r/libs/');
