@@ -7,7 +7,7 @@
 define('DEVELOPMENT', TRUE);
 
 // Optionally change to http://www.example.com/ (+ subfolder).
-define('SITE_ROOT', '/');
+define('HTTP_ROOT', '/');
 
 // (using MySQL through PDO by default)
 define('DB_HOST', 'localhost');

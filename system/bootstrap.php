@@ -21,8 +21,8 @@ function __autoload($className)
 	$directories = array(
 		ROOT . 'app/controllers/',
 		ROOT . 'app/models/',
-		ROOT . 'system/',
-		ROOT . 'system/plugins/'
+		ROOT . 'app/plugins/',
+		ROOT . 'system/'
 	);
 	
 	foreach ($directories as $dir) {

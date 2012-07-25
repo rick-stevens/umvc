@@ -37,8 +37,8 @@ final class Helper
 		$method = (count($args) < 1) ? 'index' : array_shift($args);
 		
 		return array(
-			'url' => SITE_ROOT . $url,
-			'real_url' => SITE_ROOT . $realUrl,
+			'url' => HTTP_ROOT . $url,
+			'real_url' => HTTP_ROOT . $realUrl,
 			'controller' => $controller,
 			'method' => $method,
 			'args' => $args
@@ -48,7 +48,7 @@ final class Helper
 	// Create an instant HTTP redirect.
 	public static function redirect($location, $code = 302)
 	{
-		header('Location: ' . SITE_ROOT . $location, TRUE, $code);
+		header('Location: ' . HTTP_ROOT . $location, TRUE, $code);
 		exit;
 	}
 	
