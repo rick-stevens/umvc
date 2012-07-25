@@ -11,7 +11,7 @@ define('HTTP_ROOT', '/');
 
 // (using MySQL through PDO by default)
 define('DB_HOST', 'localhost');
-define('DB_DATABASE', 'test');
+define('DB_DATABASE', '');
 define('DB_USERNAME', '');
 define('DB_PASSWORD', '');
 

@@ -7,6 +7,48 @@ final class Helper
 {
 	private static $_input = NULL;
 	
+	public static $statusCodes = array(
+		200	=> 'OK',
+		201	=> 'Created',
+		202	=> 'Accepted',
+		203	=> 'Non-Authoritative Information',
+		204	=> 'No Content',
+		205	=> 'Reset Content',
+		206	=> 'Partial Content',
+
+		300	=> 'Multiple Choices',
+		301	=> 'Moved Permanently',
+		302	=> 'Found',
+		304	=> 'Not Modified',
+		305	=> 'Use Proxy',
+		307	=> 'Temporary Redirect',
+
+		400	=> 'Bad Request',
+		401	=> 'Unauthorized',
+		403	=> 'Forbidden',
+		404	=> 'Not Found',
+		405	=> 'Method Not Allowed',
+		406	=> 'Not Acceptable',
+		407	=> 'Proxy Authentication Required',
+		408	=> 'Request Timeout',
+		409	=> 'Conflict',
+		410	=> 'Gone',
+		411	=> 'Length Required',
+		412	=> 'Precondition Failed',
+		413	=> 'Request Entity Too Large',
+		414	=> 'Request-URI Too Long',
+		415	=> 'Unsupported Media Type',
+		416	=> 'Requested Range Not Satisfiable',
+		417	=> 'Expectation Failed',
+
+		500	=> 'Internal Server Error',
+		501	=> 'Not Implemented',
+		502	=> 'Bad Gateway',
+		503	=> 'Service Unavailable',
+		504	=> 'Gateway Timeout',
+		505	=> 'HTTP Version Not Supported'
+	);
+	
 	private function __construct() {}
 	
 	// Dissect the url into an array.
@@ -69,56 +111,13 @@ final class Helper
 	}
 	
 	// Print an error page.
-	public static function showErrorPage($errorCode, $customMessage = NULL)
+	public static function showErrorPage($errorCode)
 	{
-		$statusCodes = array(
-			200	=> array('OK', ''),
-			201	=> array('Created', ''),
-			202	=> array('Accepted', ''),
-			203	=> array('Non-Authoritative Information', ''),
-			204	=> array('No Content', ''),
-			205	=> array('Reset Content', ''),
-			206	=> array('Partial Content', ''),
-	
-			300	=> array('Multiple Choices', ''),
-			301	=> array('Moved Permanently', ''),
-			302	=> array('Found', ''),
-			304	=> array('Not Modified', ''),
-			305	=> array('Use Proxy', ''),
-			307	=> array('Temporary Redirect', ''),
-	
-			400	=> array('Bad Request', 'Something went wrong.'),
-			401	=> array('Unauthorized', 'You are not authorized to view this page.'),
-			403	=> array('Forbidden', 'You are not allowed to view this page.'),
-			404	=> array('Not Found', 'The page you were looking for cannot be found.'),
-			405	=> array('Method Not Allowed', ''),
-			406	=> array('Not Acceptable', ''),
-			407	=> array('Proxy Authentication Required', ''),
-			408	=> array('Request Timeout', ''),
-			409	=> array('Conflict', ''),
-			410	=> array('Gone', ''),
-			411	=> array('Length Required', ''),
-			412	=> array('Precondition Failed', ''),
-			413	=> array('Request Entity Too Large', ''),
-			414	=> array('Request-URI Too Long', ''),
-			415	=> array('Unsupported Media Type', ''),
-			416	=> array('Requested Range Not Satisfiable', ''),
-			417	=> array('Expectation Failed', ''),
-	
-			500	=> array('Internal Server Error', 'Something went wrong.'),
-			501	=> array('Not Implemented', ''),
-			502	=> array('Bad Gateway', ''),
-			503	=> array('Service Unavailable', ''),
-			504	=> array('Gateway Timeout', ''),
-			505	=> array('HTTP Version Not Supported', '')
-		);
-	
-		$errorText = $statusCodes[$errorCode][0];
-		$errorDescription = isset($customMessage) ? $customMessage : $statusCodes[$errorCode][1];
+		$errorText = self::$statusCodes[$errorCode];
 		
 		$input = self::getInput();
 	
-		header("HTTP/1.0 {$errorCode} {$errorText}", TRUE, $errorCode);
+		header("HTTP/1.1 {$errorCode} {$errorText}", TRUE, $errorCode);
 		
 		require ROOT . 'app/views/error.php';
 		

@@ -32,11 +32,14 @@ function __autoload($className)
 		}
 }
 
-if (isset($_GET['error_page']))
+// Handle error documents.
+if (isset($_GET['error_page']) && array_key_exists((int)$_GET['error_page'], Helper::$statusCodes))
 	Helper::showErrorPage((int)$_GET['error_page']);
 
+// Handle the URL and return an associative array.
 $input = Helper::setInput(@$_GET['url']);
 
+// Call the appropriate controller and method.
 if (method_exists($input['controller'], $input['method'])) {
 	$controller = new $input['controller'];
 	call_user_func_array(array($controller, $input['method']), $input['args']);

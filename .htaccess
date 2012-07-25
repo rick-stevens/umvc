@@ -13,11 +13,10 @@ RewriteEngine on
 RewriteBase /
 
 # Force trailing slash (permanent redirect).
-RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond $1 !^(index\.php|static|robots\.txt)
 RewriteCond %{REQUEST_URI} !(.*)/$
 RewriteRule ^(.*)$ /$1/ [L,R=301]
 
-RewriteCond %{REQUEST_FILENAME} !-f
-RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond $1 !^(index\.php|static|robots\.txt)
 RewriteCond %{QUERY_STRING} (.*)
 RewriteRule ^(.*)$ index.php?%1&url=$1 [L]
