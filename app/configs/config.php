@@ -6,7 +6,7 @@
 // TRUE: display_errors, FALSE: log_errors.
 define('DEVELOPMENT', TRUE);
 
-// Optionally change to http://www.example.com/ (+ subfolder).
+// Optionally change to http://www.example.com/ (and/or any subfolders).
 define('HTTP_ROOT', '/');
 
 // (using MySQL through PDO by default)

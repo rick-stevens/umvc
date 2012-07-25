@@ -9,6 +9,6 @@ class Model
 	
 	public function __construct()
 	{
-		$this->pdo = Database::getInstance()->pdo;
+		$this->pdo = Database::getInstance();
 	}
 }
