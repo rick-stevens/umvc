@@ -11,10 +11,10 @@ define('HTTP_ROOT', '/');
 
 // (using MySQL through PDO by default)
 define('DB_HOST', 'localhost');
-define('DB_DATABASE', 'test');
+define('DB_DATABASE', '');
 define('DB_USERNAME', '');
 define('DB_PASSWORD', '');
 
-// Routes: array( $pattern , $replacement [, $redirect = FALSE [, $code = 302]] )
+// Routes: array( $pattern , $replacement [, $redirect = FALSE [, $statusCode = 302]] )
 $config['routes'][] = array('', 'home/');
-#$config['routes'][] = array('u/([a-z0-9-]+)/', 'users/user/$1/'); // Dynamic example.
+#$config['routes'][] = array('u/([0-9]+)/', 'users/user/$1/'); // Dynamic example.
