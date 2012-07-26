@@ -20,6 +20,6 @@ class HomeController extends Controller
 		$query = $homeModel->get();
 		
 		$this->view->set('query', $query);
-		$this->view->display('home.php');
+		$this->view->display('home');
 	}
 }

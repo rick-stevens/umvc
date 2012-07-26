@@ -52,7 +52,7 @@ final class Helper
 		
 		$view->set('errorCode', $errorCode);
 		$view->set('errorText', $errorText);
-		$view->display('error_page.php');
+		$view->display('error_page');
 		
 		exit;
 	}

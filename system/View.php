@@ -27,7 +27,7 @@ final class View
 		extract($this->_vars);
 		
 		ob_start();
-		require ROOT . 'app/views/' . $view;
+		require ROOT . 'app/views/' . $view . '.php';
 		$output = ob_get_contents();
 		ob_end_clean();
 		
@@ -38,6 +38,6 @@ final class View
 	{
 		extract($this->_vars);
 		
-		require ROOT . 'app/views/' . $view;
+		require ROOT . 'app/views/' . $view . '.php';
 	}
 }
