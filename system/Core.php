@@ -53,9 +53,7 @@ final class Core
 		}
 		
 		$input['args'] = explode('/', trim($input['real_url'], '/'));
-		
-		// Force "controller" appendix for security.
-		$input['controller'] = array_shift($input['args']) . 'controller';
+		$input['controller'] = array_shift($input['args']);
 		
 		// When there's no method called, fall back to $controller->index().
 		if (count($input['args']) < 1) {
@@ -68,12 +66,18 @@ final class Core
 		$input['real_url'] = HTTP_ROOT . $input['real_url'];
 		
 		self::$_input = $input;
-		
-		return self::getInput();
 	}
 	
 	public static function getInput()
 	{
 		return self::$_input;
+	}
+	
+	public static function callHook()
+	{
+		if (file_exists(ROOT . 'app/controllers/' . self::$_input['controller'] . '.php') && method_exists(self::$_input['controller'], self::$_input['method']))
+			call_user_func_array(array(new self::$_input['controller'], self::$_input['method']), self::$_input['args']);
+		else
+			Helper::showErrorPage(404);
 	}
 }

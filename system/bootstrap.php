@@ -24,11 +24,7 @@ if (isset($_GET['error_page']) && array_key_exists((int)$_GET['error_page'], Hel
 	Helper::showErrorPage((int)$_GET['error_page']);
 
 // Handle the URL and return an associative array.
-$input = Core::setInput(@$_GET['url'], $config['routes']);
+Core::setInput(@$_GET['url'], $config['routes']);
 
 // Call the appropriate controller and method.
-if (method_exists($input['controller'], $input['method'])) {
-	$controller = new $input['controller'];
-	call_user_func_array(array($controller, $input['method']), $input['args']);
-} else
-	Helper::showErrorPage(404);
+Core::callHook();

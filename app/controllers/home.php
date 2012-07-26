@@ -4,7 +4,7 @@
 //////////////////////////
 
 // Example Controller.
-class HomeController extends Controller
+class Home extends Controller
 {
 	/*
 	public function __construct()
