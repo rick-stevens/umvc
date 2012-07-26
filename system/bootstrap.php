@@ -23,7 +23,7 @@ spl_autoload_register(array('Core', 'autoload'));
 if (isset($_GET['error_page']) && array_key_exists((int)$_GET['error_page'], Helper::$errorCodes))
 	Helper::showErrorPage((int)$_GET['error_page']);
 
-// Handle the URL and return an associative array.
+// Handle the URL and store an associative array.
 Core::setInput(@$_GET['url'], $config['routes']);
 
 // Call the appropriate controller and method.

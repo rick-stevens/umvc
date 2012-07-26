@@ -12,7 +12,6 @@ final class Core
 	public static function autoload($className)
 	{
 		$directories = array(
-			ROOT . 'app/controllers/',
 			ROOT . 'app/models/',
 			ROOT . 'app/plugins/',
 			ROOT . 'system/'
@@ -73,11 +72,17 @@ final class Core
 		return self::$_input;
 	}
 	
+	// Call the appropriate controller and method.
 	public static function callHook()
 	{
-		if (file_exists(ROOT . 'app/controllers/' . self::$_input['controller'] . '.php') && method_exists(self::$_input['controller'], self::$_input['method']))
-			call_user_func_array(array(new self::$_input['controller'], self::$_input['method']), self::$_input['args']);
-		else
-			Helper::showErrorPage(404);
+		if (file_exists(ROOT . 'app/controllers/' . self::$_input['controller'] . '.php')) {
+			require_once ROOT . 'app/controllers/' . self::$_input['controller'] . '.php';
+			if (class_exists(self::$_input['controller'], FALSE) && method_exists(self::$_input['controller'], self::$_input['method'])) {
+				call_user_func_array(array(new self::$_input['controller'], self::$_input['method']), self::$_input['args']);
+				return;
+			}
+		}
+		
+		Helper::showErrorPage(404);
 	}
 }
