@@ -9,7 +9,7 @@ final class View
 	
 	public function __construct()
 	{
-		$this->_vars['input'] = Helper::getInput();
+		$this->_vars['input'] = Core::getInput();
 	}
 	
 	public function get($varName)
