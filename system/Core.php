@@ -7,6 +7,8 @@ final class Core
 {
 	private static $_input = NULL;
 	
+	private function __construct() {}
+	
 	public static function autoload($className)
 	{
 		$directories = array(

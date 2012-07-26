@@ -18,7 +18,3 @@ define('DB_PASSWORD', '');
 // Routes: array( $pattern , $replacement [, $redirect = FALSE [, $code = 302]] )
 $config['routes'][] = array('', 'home/');
 #$config['routes'][] = array('u/([a-z0-9-]+)/', 'users/user/$1/'); // Dynamic example.
-
-// Change to enable Smarty instead of the default View class.
-#define('VIEW_PLUGIN', 'SmartyPlugin');
-#define('SMARTY_DIR', '/path/to/Smarty-v.e.r/libs/');

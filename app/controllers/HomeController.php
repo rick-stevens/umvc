@@ -21,9 +21,5 @@ class HomeController extends Controller
 		
 		$this->view->set('query', $query);
 		$this->view->display('home.php');
-		
-		// Or with Smarty:
-		#$this->view->assign('query', $query);
-		#$this->view->display('home.tpl');
 	}
 }

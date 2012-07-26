@@ -3,7 +3,7 @@
  // rsmvc.googlecode.com //
 //////////////////////////
 
-require_once SMARTY_DIR . 'Smarty.class.php';
+require_once '/path/to/Smarty-v.e.r/libs/Smarty.class.php';
 
 class SmartyPlugin extends Smarty
 {

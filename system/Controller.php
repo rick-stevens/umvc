@@ -9,10 +9,6 @@ class Controller
 	
 	public function __construct()
 	{
-		if (defined('VIEW_PLUGIN')) {
-			$viewPlugin = VIEW_PLUGIN;
-			$this->view = new $viewPlugin;
-		} else
-			$this->view = new View;
+		$this->view = new View;
 	}
 }
