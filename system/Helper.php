@@ -50,9 +50,9 @@ final class Helper
 		
 		$view = new View;
 		
-		$view->set('errorCode', $errorCode);
-		$view->set('errorText', $errorText);
-		$view->display('error_page');
+		$data['errorCode'] = $errorCode;
+		$data['errorText'] = $errorText;
+		$view->display('error_page', $data);
 		
 		exit;
 	}

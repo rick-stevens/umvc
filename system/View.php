@@ -5,38 +5,25 @@
 
 final class View
 {
-	private $_vars = array();
-	
-	public function __construct()
+	public function fetch($view, $_data = array())
 	{
-		$this->_vars['input'] = Core::getInput();
-	}
-	
-	public function get($varName)
-	{
-		return $this->_vars[$varName];
-	}
-	
-	public function set($varName, $varValue)
-	{
-		return ($this->_vars[$varName] = $varValue);
-	}
-	
-	public function fetch($view)
-	{
-		extract($this->_vars);
+		extract((array)$_data);
+		unset($_data);
+		$input = Core::getInput();
 		
 		ob_start();
 		require ROOT . 'app/views/' . $view . '.php';
-		$output = ob_get_contents();
+		$_output = ob_get_contents();
 		ob_end_clean();
 		
-		return $output;
+		return $_output;
 	}
 	
-	public function display($view)
+	public function display($view, $_data = array())
 	{
-		extract($this->_vars);
+		extract((array)$_data);
+		unset($_data);
+		$input = Core::getInput();
 		
 		require ROOT . 'app/views/' . $view . '.php';
 	}

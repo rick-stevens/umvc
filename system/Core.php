@@ -5,6 +5,7 @@
 
 final class Core
 {
+	private static $_config = array();
 	private static $_input = NULL;
 	
 	private function __construct() {}
@@ -24,8 +25,18 @@ final class Core
 			}
 	}
 	
-	// Dissect the url into an array.
-	public static function setInput($url, $routes)
+	public static function setConfig($config)
+	{
+		self::$_config = array_merge(self::$_config, $config);
+	}
+	
+	public static function getConfig($configKey)
+	{
+		return self::$_config[$configKey];
+	}
+	
+	// Route or redirect the URL and store an associative array.
+	public static function routeInput($url)
 	{
 		$input = array();
 		
@@ -33,7 +44,7 @@ final class Core
 		$input['real_url'] = $input['url'];
 		
 		// Compare routes against the URL.
-		foreach ($routes as $route) {
+		foreach (self::$_config['routes'] as $route) {
 			// Escape slashes and force start-to-end match.
 			$pattern = '/^' . str_replace('/', '\/', $route[0]) . '$/';
 			
@@ -61,18 +72,20 @@ final class Core
 		} else
 			$input['method'] = array_shift($input['args']);
 		
+		// Prefix the URLs with HTTP_ROOT.
 		$input['url'] = HTTP_ROOT . $input['url'];
 		$input['real_url'] = HTTP_ROOT . $input['real_url'];
 		
 		self::$_input = $input;
 	}
 	
+	// Retrieve the stored input data.
 	public static function getInput()
 	{
 		return self::$_input;
 	}
 	
-	// Call the appropriate controller and method.
+	// Call the appropriate controller and method, else 404.
 	public static function callHook()
 	{
 		if (file_exists(ROOT . 'app/controllers/' . self::$_input['controller'] . '.php')) {

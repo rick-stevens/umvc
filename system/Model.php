@@ -5,10 +5,10 @@
 
 class Model
 {
-	public $pdo = NULL;
+	public $db = NULL;
 	
 	public function __construct()
 	{
-		$this->pdo = Database::getInstance();
+		$this->db = Database::getInstance();
 	}
 }

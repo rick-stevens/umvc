@@ -15,7 +15,7 @@ class HomeModel extends Model
 	
 	public function get()
 	{
-		return $this->pdo->query("
+		return $this->db->query("
 			SELECT *
 			FROM `test`
 		");

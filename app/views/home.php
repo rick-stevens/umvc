@@ -1,16 +1,15 @@
 <?php include ROOT . 'app/views/includes/header.php'; ?>
 
-<pre><?php
-	// $input (array) will be populated with info gathered from the URL.
-	var_dump($input);
+<pre><?php var_dump($input); ?></pre>
+
+<?php
+if ($query) {
+	echo '<p>Found ' . $query->rowCount() . ' rows:</p>';
 	
-	if ($query) {
-		echo "\n" . $query->rowCount() . ' rows:';
-		
-		// Even though $query is an object, it can be iterated as an array:
-		foreach($query as $row)
-			echo "\n" . $row['id'] . ' - ' . htmlspecialchars($row['name']);
-	}
-?></pre>
+	// Even though $query is an object (PDOStatement), it can be iterated:
+	foreach ($query as $row)
+		echo '<div>' . $row['id'] . ' - ' . htmlspecialchars($row['name']) . '</div>';
+}
+?>
 
 <?php include ROOT . 'app/views/includes/footer.php'; ?>
