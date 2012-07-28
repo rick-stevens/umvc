@@ -72,10 +72,6 @@ final class Core
 		} else
 			$input['method'] = array_shift($input['args']);
 		
-		// Prefix the URLs with HTTP_ROOT.
-		$input['url'] = HTTP_ROOT . $input['url'];
-		$input['real_url'] = HTTP_ROOT . $input['real_url'];
-		
 		self::$_input = $input;
 	}
 	

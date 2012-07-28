@@ -1,6 +1,7 @@
 php_flag magic_quotes_gpc off
 
 Options -Indexes
+#ErrorDocument 400 /subfolder_example/index.php?error_page=400
 ErrorDocument 400 /index.php?error_page=400
 ErrorDocument 401 /index.php?error_page=401
 ErrorDocument 403 /index.php?error_page=403
@@ -8,13 +9,13 @@ ErrorDocument 404 /index.php?error_page=404
 ErrorDocument 500 /index.php?error_page=500
 
 RewriteEngine on
-
-# Change to the subfolder where your project is located.
+#RewriteBase /subfolder_example/
 RewriteBase /
 
 # Force trailing slash (permanent redirect).
 RewriteCond $1 !^(index\.php|static|robots\.txt)
 RewriteCond %{REQUEST_URI} !(.*)/$
+#RewriteRule ^(.*)$ /subfolder_example/$1/ [L,R=301]
 RewriteRule ^(.*)$ /$1/ [L,R=301]
 
 RewriteCond $1 !^(index\.php|static|robots\.txt)
