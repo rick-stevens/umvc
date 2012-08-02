@@ -17,9 +17,8 @@ class Home extends Controller
 	{
 		$homeModel = new HomeModel;
 		
-		$query = $homeModel->get();
+		$data['query'] = $homeModel->get();
 		
-		$data['query'] = $query;
 		$this->view->display('home', $data);
 	}
 }

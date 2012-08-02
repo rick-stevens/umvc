@@ -37,7 +37,7 @@ final class Helper
 	// Create an instant HTTP redirect.
 	public static function redirect($location, $statusCode = 302)
 	{
-		header('Location: ' . HTTP_ROOT . $location, TRUE, $statusCode);
+		header('Location: ' . Core::getConfig('httpRoot') . $location, TRUE, $statusCode);
 		exit;
 	}
 	

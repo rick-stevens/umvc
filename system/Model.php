@@ -9,6 +9,7 @@ class Model
 	
 	public function __construct()
 	{
-		$this->db = Database::getInstance();
+		if (Core::getConfig('db'))
+			$this->db = Database::getInstance();
 	}
 }

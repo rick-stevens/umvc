@@ -27,6 +27,6 @@ switch ($errorCode) {
 
 <h1><?=$errorCode?> - <?=$errorText?></h1>
 <p><?=$errorDescription?></p>
-<p><?=HTTP_ROOT . 	htmlspecialchars($input['url'])?></p>
+<p><?=$config['httpRoot'] . htmlspecialchars($input['url'])?></p>
 
 <?php include ROOT . 'app/views/includes/footer.php'; ?>

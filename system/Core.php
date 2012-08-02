@@ -6,7 +6,7 @@
 final class Core
 {
 	private static $_config = array();
-	private static $_input = NULL;
+	private static $_input = array();
 	
 	private function __construct() {}
 	
@@ -20,19 +20,23 @@ final class Core
 		
 		foreach ($directories as $dir)
 			if (file_exists($dir . $className . '.php')) {
-				require_once($dir . $className . '.php');
+				require_once $dir . $className . '.php';
 				return;
 			}
 	}
 	
-	public static function setConfig($config)
+	public static function setConfig($configEntry)
 	{
-		self::$_config = array_merge(self::$_config, $config);
+		if (is_array($configEntry))
+			self::$_config = array_merge(self::$_config, $configEntry);
 	}
 	
-	public static function getConfig($configKey)
+	public static function getConfig($configKey = NULL)
 	{
-		return self::$_config[$configKey];
+		if (isset($configKey))
+			return isset(self::$_config[$configKey]) ? self::$_config[$configKey] : NULL;
+		else
+			return self::$_config;
 	}
 	
 	// Route or redirect the URL and store an associative array.
@@ -41,34 +45,35 @@ final class Core
 		$input = array();
 		
 		$input['url'] = strtolower($url);
-		$input['real_url'] = $input['url'];
+		$input['realUrl'] = $input['url'];
 		
 		// Compare routes against the URL.
-		foreach (self::$_config['routes'] as $route) {
-			// Escape slashes and force start-to-end match.
-			$pattern = '/^' . str_replace('/', '\/', $route[0]) . '$/';
-			
-			if (preg_match($pattern, $input['url'])) {
-				// Found a match. Check for a redirect.
-				if (isset($route[2]) && $route[2]) {
-					if (isset($route[3]))
-						self::redirect($route[1], $route[3]);
-					else
-						self::redirect($route[1]);
-				}
+		if (isset(self::$_config['routes']) && is_array(self::$_config['routes']))
+			foreach (self::$_config['routes'] as $match => $route) {
+				// Escape slashes and force start-to-end match.
+				$match = '/^' . str_replace('/', '\/', $match) . '$/';
 				
-				$input['real_url'] = preg_replace($pattern, $route[1], $input['url']);
-				break;
+				if (preg_match($match, $input['url'])) {
+					// Found a match. Check for a redirect.
+					if (isset($route[1]) && $route[1]) {
+						if (isset($route[2]))
+							Helper::redirect($route[0], $route[2]);
+						else
+							Helper::redirect($route[0]);
+					}
+					
+					$input['realUrl'] = preg_replace($match, $route[0], $input['url']);
+					break;
+				}
 			}
-		}
 		
-		$input['args'] = explode('/', trim($input['real_url'], '/'));
+		$input['args'] = explode('/', trim($input['realUrl'], '/'));
 		$input['controller'] = array_shift($input['args']);
 		
 		// When there's no method called, fall back to $controller->index().
 		if (count($input['args']) < 1) {
 			$input['method'] = 'index';
-			$input['real_url'] .= 'index/';
+			$input['realUrl'] .= 'index/';
 		} else
 			$input['method'] = array_shift($input['args']);
 		

@@ -18,6 +18,7 @@ class SmartyPlugin extends Smarty
 		
 		$this->addPluginsDir(ROOT . 'app/plugins/smarty/plugins/');
 		
+		$this->assign('config', Core::getConfig());
 		$this->assign('input', Core::getInput());
 	}
 }

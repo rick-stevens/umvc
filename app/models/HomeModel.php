@@ -15,9 +15,26 @@ class HomeModel extends Model
 	
 	public function get()
 	{
+		// Database example:
+		
+		/*
 		return $this->db->query("
 			SELECT *
-			FROM `test`
+			FROM ``
 		");
+		*/
+		
+		$query = array(
+			array(
+				'id' => 1,
+				'name' => 'Foo'
+			),
+			array(
+				'id' => 2,
+				'name' => 'Bar'
+			)
+		);
+		
+		return $query;
 	}
 }

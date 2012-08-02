@@ -9,6 +9,7 @@ final class View
 	{
 		extract((array)$_data);
 		unset($_data);
+		$config = Core::getConfig();
 		$input = Core::getInput();
 		
 		ob_start();
@@ -23,6 +24,7 @@ final class View
 	{
 		extract((array)$_data);
 		unset($_data);
+		$config = Core::getConfig();
 		$input = Core::getInput();
 		
 		require ROOT . 'app/views/' . $view . '.php';

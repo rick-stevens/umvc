@@ -13,10 +13,12 @@ final class Database
 	{
 		if ( ! isset(self::$_instance)) {
 			try {
+				$dbConfig = Core::getConfig('db');
+				
 				self::$_instance = new PDO(
-					'mysql:host=' . DB_HOST . ';dbname=' . DB_DATABASE,
-					DB_USERNAME,
-					DB_PASSWORD,
+					'mysql:host=' . $dbConfig['host'] . ';dbname=' . $dbConfig['database'],
+					$dbConfig['username'],
+					$dbConfig['password'],
 					array(PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES utf8')
 				);
 			} catch (Exception $e) {
