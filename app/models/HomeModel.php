@@ -3,7 +3,7 @@
  // rsmvc.googlecode.com //
 //////////////////////////
 
-// Example model.
+// Example model
 class HomeModel extends Model
 {
 	/*
@@ -18,7 +18,7 @@ class HomeModel extends Model
 		// Database example:
 		
 		/*
-		return $this->db->query("
+		$query = $this->db->query("
 			SELECT *
 			FROM ``
 		");

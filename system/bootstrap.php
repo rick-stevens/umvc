@@ -13,9 +13,9 @@ $config = array(
 require_once ROOT . 'app/configs/config.php';
 require_once ROOT . 'system/Core.php';
 
-Core::setConfig($config);
+Core::$config = $config;
 
-if (Core::getConfig('development')) {
+if (Core::$config['development']) {
 	error_reporting(E_ALL);
 	ini_set('display_errors', 'On');
 	ini_set('log_errors', 'Off');
@@ -32,8 +32,8 @@ spl_autoload_register(array('Core', 'autoload'));
 Core::routeInput(isset($_GET['_url']) ? $_GET['_url'] : '');
 
 // Route Apache's error documents.
-if (isset($_GET['errorPage']) && array_key_exists($_GET['errorPage'], Helper::$errorCodes))
-	Helper::showErrorPage($_GET['errorPage']);
+if (isset($_GET['errorPage']) && array_key_exists($_GET['errorPage'], Core::$errorCodes))
+	Core::showErrorPage($_GET['errorPage']);
 
 // Call the appropriate controller and method, else 404.
 Core::callHook();

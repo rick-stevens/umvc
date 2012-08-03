@@ -3,7 +3,7 @@
  // rsmvc.googlecode.com //
 //////////////////////////
 
-// Example Controller.
+// Example controller
 class Home extends Controller
 {
 	/*

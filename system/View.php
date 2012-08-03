@@ -9,8 +9,8 @@ final class View
 	{
 		extract((array)$_data);
 		unset($_data);
-		$config = Core::getConfig();
-		$input = Core::getInput();
+		$config = Core::$config;
+		$input = Core::$input;
 		
 		ob_start();
 		require ROOT . 'app/views/' . $view . '.php';
@@ -24,8 +24,8 @@ final class View
 	{
 		extract((array)$_data);
 		unset($_data);
-		$config = Core::getConfig();
-		$input = Core::getInput();
+		$config = Core::$config;
+		$input = Core::$input;
 		
 		require ROOT . 'app/views/' . $view . '.php';
 	}
