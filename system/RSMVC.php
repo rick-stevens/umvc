@@ -6,7 +6,7 @@
 final class RSMVC
 {
 	const VERSION = '1.0.0';
-	public static $config, $input = array();
+	public static $config, $input = NULL;
 	public static $errorCodes = array(
 		400 => 'Bad Request',
 		401 => 'Unauthorized',
@@ -34,27 +34,39 @@ final class RSMVC
 		#505 => 'HTTP Version Not Supported'
 	);
 	
+	// Static class, no need to create instances.
 	private function __construct() {}
 	
-	public static function autoload($className)
-	{
-		// Note the missing controllers folder, this is handled separately in self::init().
-		$directories = array(
-			ROOT . 'app/models/',
-			ROOT . 'app/plugins/',
-			ROOT . 'system/'
-		);
-		
-		foreach ($directories as $dir)
-			if (file_exists($dir . $className . '.php')) {
-				require_once $dir . $className . '.php';
-				return;
-			}
-	}
-	
-	// Dissect and store the URL segments, handle routing/redirects, handle error page or call the controller.
+	// Dissect and store the URL segments, handle routing/redirects, handle error pages and call the controller.
 	public static function init()
 	{
+		// Default settings, don't change these.
+		$config = array(
+			'development' => FALSE,
+			'httpRoot' => (($_SERVER['HTTPS'] == 'on' || $_SERVER['SERVER_PORT'] == 443) ? 'https://' : 'http://') . $_SERVER['HTTP_HOST'] . '/'
+		);
+		
+		// Overwrite any default settings with the app's config.php:
+		require_once ROOT . 'app/configs/config.php';
+		
+		// Store the config.
+		self::$config = $config;
+		
+		if (self::$config['development']) {
+			error_reporting(E_ALL);
+			ini_set('display_errors', 'On');
+			ini_set('log_errors', 'Off');
+		} else {
+			error_reporting(E_ALL ^ E_NOTICE ^ E_DEPRECATED ^ E_STRICT);
+			ini_set('display_errors', 'Off');
+			ini_set('log_errors', 'On');
+			ini_set('error_log', ROOT . 'system/tmp/logs/error.log');
+		}
+		
+		// Register the autoloader.
+		spl_autoload_register(array('RSMVC', 'autoload'));
+		
+		// URL handling.
 		$input['url'] = isset($_GET['_url']) ? strtolower($_GET['_url']) : '';
 		$input['realUrl'] = $input['url'];
 		
@@ -95,7 +107,7 @@ final class RSMVC
 		if (isset($_GET['_errorPage']) && array_key_exists($_GET['_errorPage'], self::$errorCodes))
 			self::showErrorPage($_GET['_errorPage']);
 		
-		// Call the appropriate controller and method, else 404.
+		// Call the appropriate controller and method.
 		if (file_exists(ROOT . 'app/controllers/' . $input['controller'] . '.php')) {
 			require_once ROOT . 'app/controllers/' . $input['controller'] . '.php';
 			if (class_exists($input['controller'], FALSE) && method_exists($input['controller'], $input['method'])) {
@@ -104,7 +116,24 @@ final class RSMVC
 			}
 		}
 		
+		// No controller and/or method was found, show a 404 error page.
 		self::showErrorPage(404);
+	}
+	
+	public static function autoload($className)
+	{
+		// Note the missing controllers folder, this is handled separately in self::init().
+		$directories = array(
+			ROOT . 'app/models/',
+			ROOT . 'app/plugins/',
+			ROOT . 'system/'
+		);
+		
+		foreach ($directories as $dir)
+			if (file_exists($dir . $className . '.php')) {
+				require_once $dir . $className . '.php';
+				return;
+			}
 	}
 	
 	// Create an instant HTTP redirect.
