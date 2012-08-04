@@ -1,14 +1,14 @@
-# When using a subfolder, prepend it manually to the ErrorDocuments (lines 7-11), RewriteBase (line 14) and the 301 redirect (line 19).
+# When using a subfolder, prepend it manually to "/index.php" (lines 7-11), "/" (line 14) and "/$1/" (line 19).
 
 php_flag magic_quotes_gpc off
 
 Options -Indexes
 
-ErrorDocument 400 /index.php?errorPage=400
-ErrorDocument 401 /index.php?errorPage=401
-ErrorDocument 403 /index.php?errorPage=403
-ErrorDocument 404 /index.php?errorPage=404
-ErrorDocument 500 /index.php?errorPage=500
+ErrorDocument 400 /index.php?_errorPage=400
+ErrorDocument 401 /index.php?_errorPage=401
+ErrorDocument 403 /index.php?_errorPage=403
+ErrorDocument 404 /index.php?_errorPage=404
+ErrorDocument 500 /index.php?_errorPage=500
 
 RewriteEngine on
 RewriteBase /

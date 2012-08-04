@@ -38,7 +38,7 @@ final class RSMVC
 	
 	public static function autoload($className)
 	{
-		// Note the missing controllers folder, this is handled separately in self::callHook().
+		// Note the missing controllers folder, this is handled separately in self::init().
 		$directories = array(
 			ROOT . 'app/models/',
 			ROOT . 'app/plugins/',
@@ -92,8 +92,8 @@ final class RSMVC
 		self::$input = $input;
 		
 		// Handle Apache's error documents.
-		if (isset($_GET['errorPage']) && array_key_exists($_GET['errorPage'], self::$errorCodes))
-			self::showErrorPage($_GET['errorPage']);
+		if (isset($_GET['_errorPage']) && array_key_exists($_GET['_errorPage'], self::$errorCodes))
+			self::showErrorPage($_GET['_errorPage']);
 		
 		// Call the appropriate controller and method, else 404.
 		if (file_exists(ROOT . 'app/controllers/' . $input['controller'] . '.php')) {
