@@ -11,7 +11,7 @@ $config = array(
 
 // Overwrite any default settings with the app's config.php:
 require_once ROOT . 'app/configs/config.php';
-require_once ROOT . 'system/Core.php';
+require_once ROOT . 'system/RSMVC.php';
 
 RSMVC::$config = $config;
 
