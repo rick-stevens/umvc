@@ -21,6 +21,6 @@ class SmartyPlugin extends Smarty
 		$this->assign('rsmvc', array(
 			'config' => RSMVC::$config,
 			'input' => RSMVC::$input
-		);
+		));
 	}
 }
