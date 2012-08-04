@@ -27,6 +27,6 @@ switch ($errorCode) {
 
 <h1><?=$errorCode?> - <?=$errorText?></h1>
 <p><?=$errorDescription?></p>
-<p><?=$config['httpRoot'] . htmlspecialchars($input['url'])?></p>
+<p><?=$rsmvc['config']['httpRoot'] . htmlspecialchars($rsmvc['input']['url'])?></p>
 
 <?php include ROOT . 'app/views/includes/footer.php'; ?>

@@ -7,13 +7,8 @@ final class View
 {
 	public function fetch($view, $_data = array())
 	{
-		extract((array)$_data);
-		unset($_data);
-		$config = Core::$config;
-		$input = Core::$input;
-		
 		ob_start();
-		require ROOT . 'app/views/' . $view . '.php';
+		$this->display($view, $_data);
 		$_output = ob_get_contents();
 		ob_end_clean();
 		
@@ -24,8 +19,11 @@ final class View
 	{
 		extract((array)$_data);
 		unset($_data);
-		$config = Core::$config;
-		$input = Core::$input;
+		
+		$rsmvc = array(
+			'config' => RSMVC::$config,
+			'input' => RSMVC::$input
+		);
 		
 		require ROOT . 'app/views/' . $view . '.php';
 	}

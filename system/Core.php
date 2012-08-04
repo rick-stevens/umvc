@@ -3,10 +3,10 @@
  // rsmvc.googlecode.com //
 //////////////////////////
 
-final class Core
+final class RSMVC
 {
-	public static $config = array();
-	public static $input = array();
+	const VERSION = '1.0.0';
+	public static $config, $input = array();
 	public static $errorCodes = array(
 		400 => 'Bad Request',
 		401 => 'Unauthorized',
@@ -52,14 +52,14 @@ final class Core
 			}
 	}
 	
-	// Route or redirect the URL and store an associative array.
-	public static function routeInput($url)
+	// Dissect and store the URL segments, handle routing/redirects, handle error page or call the controller.
+	public static function init()
 	{
-		$input['url'] = strtolower($url);
+		$input['url'] = isset($_GET['_url']) ? strtolower($_GET['_url']) : '';
 		$input['realUrl'] = $input['url'];
 		
 		// Compare routes against the URL.
-		if (is_array(self::$config['routes']))
+		if (isset(self::$config['routes']))
 			foreach (self::$config['routes'] as $match => $route) {
 				// Escape slashes and force start-to-end match.
 				$match = '/^' . str_replace('/', '\/', $match) . '$/';
@@ -88,16 +88,18 @@ final class Core
 		} else
 			$input['method'] = array_shift($input['args']);
 		
+		// Store the input.
 		self::$input = $input;
-	}
-	
-	// Call the appropriate controller and method, else 404.
-	public static function callHook()
-	{
-		if (file_exists(ROOT . 'app/controllers/' . self::$input['controller'] . '.php')) {
-			require_once ROOT . 'app/controllers/' . self::$input['controller'] . '.php';
-			if (class_exists(self::$input['controller'], FALSE) && method_exists(self::$input['controller'], self::$input['method'])) {
-				call_user_func_array(array(new self::$input['controller'], self::$input['method']), self::$input['args']);
+		
+		// Handle Apache's error documents.
+		if (isset($_GET['errorPage']) && array_key_exists($_GET['errorPage'], self::$errorCodes))
+			self::showErrorPage($_GET['errorPage']);
+		
+		// Call the appropriate controller and method, else 404.
+		if (file_exists(ROOT . 'app/controllers/' . $input['controller'] . '.php')) {
+			require_once ROOT . 'app/controllers/' . $input['controller'] . '.php';
+			if (class_exists($input['controller'], FALSE) && method_exists($input['controller'], $input['method'])) {
+				call_user_func_array(array(new $input['controller'], $input['method']), $input['args']);
 				return;
 			}
 		}
@@ -108,7 +110,7 @@ final class Core
 	// Create an instant HTTP redirect.
 	public static function redirect($location, $statusCode = 302)
 	{
-		header('Location: ' . Core::$config['httpRoot'] . $location, TRUE, $statusCode);
+		header('Location: ' . self::$config['httpRoot'] . $location, TRUE, $statusCode);
 		exit;
 	}
 	

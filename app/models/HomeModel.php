@@ -20,7 +20,7 @@ class HomeModel extends Model
 		/*
 		$query = $this->db->query("
 			SELECT *
-			FROM ``
+			FROM `example`
 		");
 		*/
 		

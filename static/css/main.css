@@ -4,16 +4,16 @@ html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abb
 
 body {
 	text-align: center;
-	font: 10pt sans-serif;
+	font: 10pt/normal sans-serif;
 	color: #000;
-}
-
-label, button, input[type=button], input[type=submit] {
-	cursor: pointer;
 }
 
 pre, code, kbd, samp {
 	font-family: monospace;
+}
+
+label, button, input[type=button], input[type=submit] {
+	cursor: pointer;
 }
 
 div#main {

@@ -11,12 +11,12 @@ final class Database
 	
 	public static function getInstance()
 	{
-		if ( ! isset(self::$_instance) && isset(Core::$config['db'])) {
+		if ( ! isset(self::$_instance) && isset(RSMVC::$config['db'])) {
 			try {
 				self::$_instance = new PDO(
-					'mysql:host=' . Core::$config['host'] . ';dbname=' . Core::$config['database'],
-					Core::$config['username'],
-					Core::$config['password'],
+					'mysql:host=' . RSMVC::$config['db']['host'] . ';dbname=' . RSMVC::$config['db']['database'],
+					RSMVC::$config['db']['username'],
+					RSMVC::$config['db']['password'],
 					array(PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES utf8')
 				);
 			} catch (Exception $e) {
@@ -24,7 +24,7 @@ final class Database
 			}
 			
 			// Unset the database config for security.
-			unset(Core::$config['db']);
+			unset(RSMVC::$config['db']);
 		}
 		
 		return self::$_instance;
