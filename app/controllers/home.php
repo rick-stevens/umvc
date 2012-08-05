@@ -19,6 +19,6 @@ class Home extends Controller
 		
 		$data['example'] = $homeModel->get();
 		
-		$this->view->display('home', $data);
+		$this->view->display('home/index', $data);
 	}
 }
