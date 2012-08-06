@@ -46,10 +46,10 @@ final class RSMVC
 			'httpRoot' => (($_SERVER['HTTPS'] == 'on' || $_SERVER['SERVER_PORT'] == 443) ? 'https://' : 'http://') . $_SERVER['HTTP_HOST'] . '/'
 		);
 		
-		// Overwrite any default settings with the app's config.php:
+		// Overwrite the default settings with the app's config.php:
 		require_once ROOT . 'app/configs/config.php';
 		
-		// Store the config.
+		// Store the finished config.
 		self::$config = $config;
 		
 		if (self::$config['development']) {
@@ -70,7 +70,7 @@ final class RSMVC
 		$input['url'] = isset($_GET['_url']) ? strtolower($_GET['_url']) : '';
 		$input['realUrl'] = $input['url'];
 		
-		// Compare routes against the URL.
+		// Compare any routes to the URL.
 		if (isset(self::$config['routes']))
 			foreach (self::$config['routes'] as $match => $route) {
 				// Escape slashes and force start-to-end match.
@@ -90,20 +90,21 @@ final class RSMVC
 				}
 			}
 		
+		// Explode the URL into segments.
 		$input['args'] = explode('/', trim($input['realUrl'], '/'));
 		$input['controller'] = array_shift($input['args']);
 		
-		// When there's no method called, fall back to $controller->index().
+		// When there's no method supplied, fall back to $controller->index().
 		if (count($input['args']) == 0) {
 			$input['method'] = 'index';
 			$input['realUrl'] .= 'index/';
 		} else
 			$input['method'] = array_shift($input['args']);
 		
-		// Store the input.
+		// Store the finished input.
 		self::$input = $input;
 		
-		// Handle Apache's error documents.
+		// Handle Apache's error documents (see /.htaccess).
 		if (isset($_GET['_errorPage']) && array_key_exists($_GET['_errorPage'], self::$errorCodes))
 			self::showErrorPage($_GET['_errorPage']);
 		
