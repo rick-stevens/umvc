@@ -16,14 +16,14 @@ class HomeModel extends Model
 	public function get()
 	{
 		// Database example:
-		
-		/*
-		$query = $this->db->query("
+/*
+		$query = $this->db->query('
 			SELECT *
 			FROM `example`
-		");
-		*/
+		');
+*/
 		
+		// Static example:
 		$query = array(
 			array(
 				'id' => 1,

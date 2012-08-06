@@ -5,7 +5,7 @@
 
 final class RSMVC
 {
-	const VERSION = '1.0.1';
+	const VERSION = '1.0.2';
 	public static $config, $input = NULL;
 	public static $errorCodes = array(
 		400 => 'Bad Request',
