@@ -15,10 +15,10 @@ class Home extends Controller
 	
 	public function index(/* $arg1 = NULL, $arg2 = NULL, etc. */)
 	{
-		$homeModel = new HomeModel;
+		$model = new HomeModel;
 		
-		$data['example'] = $homeModel->get();
+		$vars['example'] = $model->get();
 		
-		$this->view->display('home/index', $data);
+		$this->view->display('home/index.php', $vars);
 	}
 }

@@ -1,4 +1,4 @@
-# When using a subfolder, prepend it manually to "/index.php" (lines 7-11), "/" (line 14) and "/$1/" (line 19).
+# When using a subfolder, prepend it manually to "/index.php" (lines 7-29), "/" (line 32) and "/$1/" (line 37).
 
 php_flag magic_quotes_gpc off
 
@@ -8,17 +8,34 @@ ErrorDocument 400 /index.php?_errorPage=400
 ErrorDocument 401 /index.php?_errorPage=401
 ErrorDocument 403 /index.php?_errorPage=403
 ErrorDocument 404 /index.php?_errorPage=404
+ErrorDocument 405 /index.php?_errorPage=405
+ErrorDocument 406 /index.php?_errorPage=406
+ErrorDocument 407 /index.php?_errorPage=407
+ErrorDocument 408 /index.php?_errorPage=408
+ErrorDocument 409 /index.php?_errorPage=409
+ErrorDocument 410 /index.php?_errorPage=410
+ErrorDocument 411 /index.php?_errorPage=411
+ErrorDocument 412 /index.php?_errorPage=412
+ErrorDocument 413 /index.php?_errorPage=413
+ErrorDocument 414 /index.php?_errorPage=414
+ErrorDocument 415 /index.php?_errorPage=415
+ErrorDocument 416 /index.php?_errorPage=416
+ErrorDocument 417 /index.php?_errorPage=417
 ErrorDocument 500 /index.php?_errorPage=500
+ErrorDocument 501 /index.php?_errorPage=501
+ErrorDocument 502 /index.php?_errorPage=502
+ErrorDocument 503 /index.php?_errorPage=503
+ErrorDocument 504 /index.php?_errorPage=504
+ErrorDocument 505 /index.php?_errorPage=505
 
 RewriteEngine on
 RewriteBase /
 
 # Force trailing slash (permanent redirect).
 RewriteCond $1 !^(index\.php|static|robots\.txt)
-RewriteCond %{REQUEST_URI} !(.*)/$
+RewriteCond %{REQUEST_URI} !/$
 RewriteRule ^(.*)$ /$1/ [L,R=301]
 
 # Route everything except items listed below through index.php.
 RewriteCond $1 !^(index\.php|static|robots\.txt)
-RewriteCond %{QUERY_STRING} (.*)
-RewriteRule ^(.*)$ index.php?%1&_url=$1 [L]
+RewriteRule ^(.*)$ index.php [L]

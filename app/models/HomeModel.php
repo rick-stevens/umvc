@@ -25,14 +25,7 @@ class HomeModel extends Model
 		
 		// Static example:
 		$query = array(
-			array(
-				'id' => 1,
-				'name' => 'Foo'
-			),
-			array(
-				'id' => 2,
-				'name' => 'Bar'
-			)
+			'foo' => 'bar'
 		);
 		
 		return $query;

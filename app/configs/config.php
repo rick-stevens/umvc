@@ -3,23 +3,17 @@
  // rsmvc.googlecode.com //
 //////////////////////////
 
-// Retrieve or change any of these values in your app with RSMVC::$config, or through $rsmvc['config'] in your views.
-
-// TRUE: display_errors, FALSE: log_errors.
+// TRUE: display_errors, FALSE: log_errors (/system/tmp/logs/error.log).
 $config['development'] = TRUE;
 
-// Uncomment and change this to your website (+ any subfolders). (See /.htaccess for additional subfolder settings.)
-#$config['httpRoot'] = 'http://www.example.com/';
+// (optional) Uncomment and change this to your website (+ any subfolders). (See /.htaccess for additional subfolder settings.)
+#$config['root'] = 'http://www.example.com/';
 
-// Uncomment these to enable database access in models with $this->db:
+// (optional) Uncomment these to enable PDO database access in models through $this->db:
 #$config['db']['host'] = 'localhost';
 #$config['db']['database'] = '';
 #$config['db']['username'] = '';
 #$config['db']['password'] = '';
 
-// Route format:
-// $config['routes'][ (string) $match ] = array( (string) $replacement [, (bool) $redirect = FALSE [, (int) $statusCode = 302]] )
-// Examples:
-// $config['routes']['u/([0-9]+)/'] = array('users/user/$1/');
-// $config['routes']['this/is/a/'] = array('permanent/redirect/', TRUE, 301);
-$config['routes'][''] = array('home/');
+// Routes: $config['routes'][ $match ] = array( $replacement [, $redirect = FALSE [, $statusCode = 302 ]] )
+$config['routes']['/'] = array('/home/', TRUE);

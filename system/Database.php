@@ -3,30 +3,38 @@
  // rsmvc.googlecode.com //
 //////////////////////////
 
-final class Database
+class Database extends PDO
 {
-	private static $_instance = NULL;
-	
-	private function __construct() {}
-	
-	public static function getInstance()
+	public function query($sql)
 	{
-		if ( ! isset(self::$_instance) && isset(RSMVC::$config['db'])) {
-			try {
-				self::$_instance = new PDO(
-					'mysql:host=' . RSMVC::$config['db']['host'] . ';dbname=' . RSMVC::$config['db']['database'],
-					RSMVC::$config['db']['username'],
-					RSMVC::$config['db']['password'],
-					array(PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES utf8')
-				);
-			} catch (Exception $e) {
-				trigger_error('Database error: ' . $e->getMessage(), E_USER_ERROR);
-			}
-			
-			// Unset the database config for security.
-			unset(RSMVC::$config['db']);
-		}
+		RSMVC::$queries++;
 		
-		return self::$_instance;
+		$startTime = microtime(TRUE);
+		$return = parent::query($sql);
+		RSMVC::$queryTimer += microtime(TRUE) - $startTime;
+		
+		return $return;
+	}
+	
+	public function exec($sql)
+	{
+		RSMVC::$queries++;
+		
+		$startTime = microtime(TRUE);
+		$return = parent::exec($sql);
+		RSMVC::$queryTimer += microtime(TRUE) - $startTime;
+		
+		return $return;
+	}
+	
+	public function lastInsertId($seqname = NULL)
+	{
+		RSMVC::$queries++;
+		
+		$startTime = microtime(TRUE);
+		$return = parent::lastInsertId($seqname = NULL);
+		RSMVC::$queryTimer += microtime(TRUE) - $startTime;
+		
+		return $return;
 	}
 }

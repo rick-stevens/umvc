@@ -1,0 +1,46 @@
+  //////////////////////////
+ // rsmvc.googlecode.com //
+//////////////////////////
+
+INSTALLING
+  - Enable Apache's mod_rewrite.
+  - Extract the package.
+  - Make /system/tmp/ and subfolders writable (chmod).
+  - Read and edit /app/configs/config.php.
+
+CONTROLLER
+  /app/controllers/examplename.php (same case as URL segment)
+  ExampleName extends Controller
+
+  $this->view-> ( display( $fileName [, $vars = NULL ] ) | fetch( $fileName [, $vars = NULL ] ) )
+  display() prints the view, fetch() returns the view.
+
+MODEL
+  /app/models/*.php
+  * extends Model
+
+  $this->db-> ( query( $sql ) | exec( $sql ) | quote( $string ) | lastInsertId( void ) )
+  PDO instance. Enable this by uncommenting the $config['db'] lines in /app/configs/config.php.
+
+VIEW
+  /app/views/*.php
+
+  $config
+  Returns the config (array).
+  
+  #timer# is replaced by the page's load time in seconds.
+  #queries# is replaced by the amount of database queries made.
+  #queryTimer# is replaced by the query load time in seconds.
+
+GLOBAL METHODS
+  RSMVC::getConfig([ $key = NULL ])
+  Returns the config or part of the config when $key is set.
+
+  RSMVC::setConfig( $key [, $value = NULL ] )
+  If $key is an array, it will array_merge itself with the existing config. Else if $value is NULL, it unsets the $key row.
+
+  RSMVC::redirect( $location [, $statusCode = 302 ] )
+  Creates a local redirect.
+
+  RSMVC::errorPage( $errorCode [, $message = NULL ] )
+  Prints an error page. If $message is not set, /app/views/errorPage.php will print one based on the $errorCode.
