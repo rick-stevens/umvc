@@ -5,7 +5,7 @@
 
 final class RSMVC
 {
-	const VERSION = '1.1.0';
+	const VERSION = '1.1.1';
 	
 	public static $timer = 0;
 	public static $queries = 0;
@@ -119,7 +119,7 @@ final class RSMVC
 			$config['development'] = FALSE;
 		
 		if ( ! isset($config['root']))
-			$config['root'] = (($_SERVER['HTTPS'] == 'on' || $_SERVER['SERVER_PORT'] == 443) ? 'https://' : 'http://') . $_SERVER['HTTP_HOST'] . '/';
+			$config['root'] = ($_SERVER['HTTPS'] == 'on' || $_SERVER['SERVER_PORT'] == 443 ? 'https://' : 'http://') . $_SERVER['HTTP_HOST'] . '/';
 		
 		self::setConfig($config);
 		
@@ -140,7 +140,7 @@ final class RSMVC
 		
 		// Separate URL from query string.
 		$url = explode('?', $_SERVER['REQUEST_URI'], 2);
-		$url = $realUrl = $url[0];
+		$url = $realUrl = strtolower($url[0]);
 		
 		// Compare any routes to the URL.
 		if (isset(self::$_config['routes']))

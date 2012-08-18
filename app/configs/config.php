@@ -16,4 +16,4 @@ $config['development'] = TRUE;
 #$config['db']['password'] = '';
 
 // Routes: $config['routes'][ $match ] = array( $replacement [, $redirect = FALSE [, $statusCode = 302 ]] )
-$config['routes']['/'] = array('/home/', TRUE);
+$config['routes']['/'] = array('/home/');
