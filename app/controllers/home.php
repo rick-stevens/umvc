@@ -15,10 +15,17 @@ class Home extends Controller
 	
 	public function index(/* $arg1 = NULL, $arg2 = NULL, etc. */)
 	{
-		$model = new HomeModel;
+		// Caching example:
 		
-		$vars['example'] = $model->get();
+		// Only handle data if the view is not cached.
+		if ( ! $this->view->isCached('home/index.php')) {
+			$model = new HomeModel;
+			$example = $model->get();
+			$this->view->save('example', $example);
+		}
 		
-		$this->view->display('home/index.php', $vars);
+		$this->view->display('home/index.php', TRUE);
+		
+		// Don't forget to call $this->view->clearCache([ $fileName = NULL ]) if you need to recompile the view.
 	}
 }

@@ -7,6 +7,7 @@ class View
 {
 	private static $_instance = NULL;
 	private $_views = array();
+	private $_vars = array();
 	
 	private function __construct() {}
 	
@@ -14,8 +15,8 @@ class View
 	{
 		$replacements = array(
 			'[#queries#]' => RSMVC::$queries,
-			'[#timer#]' => round(microtime(TRUE) - RSMVC::$timer, 4),
-			'[#queryTimer#]' => round(RSMVC::$queryTimer, 4)
+			'[#timer#]' => round(microtime(TRUE) - RSMVC::$timer, 5),
+			'[#queryTimer#]' => round(RSMVC::$queryTimer, 5)
 		);
 		
 		foreach ($this->_views as $view) 
@@ -25,28 +26,59 @@ class View
 	public static function getInstance()
 	{
 		if ( ! isset(self::$_instance))
-			self::$_instance = new self;
+			self::$_instance = new View;
 		
 		return self::$_instance;
 	}
 	
-	public function fetch($_fileName, $_vars = NULL)
+	public function save($key, $value = NULL)
 	{
-		extract((array)$_vars);
-		unset($_vars);
-		
-		$config = RSMVC::getConfig();
-		
-		ob_start();
-		require ROOT . 'app/views/' . $_fileName;
-		$output = ob_get_contents();
-		ob_end_clean();
+		if (is_array($key))
+			$this->_vars = array_merge($this->_vars, $key);
+		else
+			$this->_vars[$key] = $value;
+	}
+	
+	public function fetch($_fileName, $_cache = FALSE)
+	{
+		if ($_cache && $this->isCached($_fileName))
+			$output = file_get_contents(ROOT . 'system/tmp/cache/' . md5($_fileName));
+		else {
+			extract($this->_vars);
+			
+			$config = RSMVC::getConfig();
+			
+			ob_start();
+			require ROOT . 'app/views/' . $_fileName;
+			$output = ob_get_contents();
+			ob_end_clean();
+			
+			if ($_cache) {
+				$handle = fopen(ROOT . 'system/tmp/cache/' . md5($_fileName), 'w') or RSMVC::errorPage(500, 'Couldn\'t write to cache folder.');
+				fwrite($handle, $output);
+				fclose($handle);
+			}
+		}
 		
 		return $output;
 	}
 	
-	public function display($_fileName, $_vars = NULL)
+	public function display($fileName, $cache = FALSE)
 	{
-		$this->_views[] = $this->fetch($_fileName, $_vars);
+		$this->_views[] = $this->fetch($fileName, $cache);
+	}
+	
+	public function isCached($fileName)
+	{
+		return file_exists(ROOT . 'system/tmp/cache/' . md5($fileName));
+	}
+	
+	public function clearCache($fileName = NULL)
+	{
+		if ($fileName)
+			@unlink(ROOT . 'system/tmp/cache/' . md5($fileName));
+		else
+			foreach (glob(ROOT . 'system/tmp/cache/*') as $file)
+				@unlink($file);
 	}
 }

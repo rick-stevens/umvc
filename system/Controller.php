@@ -3,8 +3,7 @@
  // rsmvc.googlecode.com //
 //////////////////////////
 
-class Controller
-{
+class Controller {
 	public $view = NULL;
 	
 	public function __construct()

@@ -5,34 +5,34 @@
 
 class Database extends PDO
 {
-	public function query($sql)
+	public function query($statement)
 	{
 		RSMVC::$queries++;
 		
 		$startTime = microtime(TRUE);
-		$return = parent::query($sql);
+		$return = parent::query($statement);
 		RSMVC::$queryTimer += microtime(TRUE) - $startTime;
 		
 		return $return;
 	}
 	
-	public function exec($sql)
+	public function exec($statement)
 	{
 		RSMVC::$queries++;
 		
 		$startTime = microtime(TRUE);
-		$return = parent::exec($sql);
+		$return = parent::exec($statement);
 		RSMVC::$queryTimer += microtime(TRUE) - $startTime;
 		
 		return $return;
 	}
 	
-	public function lastInsertId($seqname = NULL)
+	public function lastInsertId($name = NULL)
 	{
 		RSMVC::$queries++;
 		
 		$startTime = microtime(TRUE);
-		$return = parent::lastInsertId($seqname = NULL);
+		$return = parent::lastInsertId($name);
 		RSMVC::$queryTimer += microtime(TRUE) - $startTime;
 		
 		return $return;

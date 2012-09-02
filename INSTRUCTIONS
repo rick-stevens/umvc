@@ -2,6 +2,10 @@
  // rsmvc.googlecode.com //
 //////////////////////////
 
+REQUIREMENTS:
+  - PHP >= 5.3.0 (PDO and object model)
+  - Apache's mod_rewrite
+
 INSTALLING
   - Enable Apache's mod_rewrite.
   - Make /system/tmp/ and subfolders writable (chmod).
@@ -9,14 +13,26 @@ INSTALLING
 
 CONTROLLER
   /app/controllers/examplename.php (lowercase filename)
-  ExampleName extends Controller
+  class ExampleName extends Controller
 
-  $this->view-> ( display( $fileName [, $vars = NULL ] ) | fetch( $fileName [, $vars = NULL ] ) )
-  display() prints the view, fetch() returns the view.
+  $this->view->save( $key [, $value = NULL ] )
+  Save a variable (or set of variables when $key is an associative array).
+
+  $this->view->display( $fileName [, $caching = FALSE ] )
+  Prints the view.
+
+  $this->view->fetch( $fileName [, $caching = FALSE ] )
+  Returns the view.
+
+  $this->view->isCached( $fileName )
+  Checks if the view is cached.
+
+  $this->view->clearCache([ $fileName = NULL ])
+  Deletes the given view cache or entire cache directory.
 
 MODEL
   /app/models/*.php
-  * extends Model
+  class * extends Model
 
   $this->db-> ( query( $sql ) | exec( $sql ) | quote( $string ) | lastInsertId( void ) )
   PDO instance. Enable this by uncommenting the $config['db'] lines in /app/configs/config.php.
@@ -27,11 +43,12 @@ VIEW
   $config
   Returns the config (array).
 
-  #timer# is replaced by the page's load time in seconds.
+  NOTE: The following 3 variables only work with the View::display() method.
+  #timer# is replaced by the page's total load time in seconds.
   #queries# is replaced by the amount of database queries called.
   #queryTimer# is replaced by the query load time in seconds.
 
-GLOBAL METHODS
+GLOBAL HELPERS
   RSMVC::getConfig([ $key = NULL ])
   Returns the config or part of the config when $key is set.
 

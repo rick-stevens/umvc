@@ -5,7 +5,7 @@
 
 final class RSMVC
 {
-	const VERSION = '1.1.1';
+	const VERSION = '1.1.2';
 	
 	public static $timer = 0;
 	public static $queries = 0;
@@ -71,11 +71,10 @@ final class RSMVC
 	{
 		if (is_array($key))
 			self::$_config = array_merge(self::$_config, $key);
+		elseif ($value === NULL)
+			unset(self::$_config[$key]);
 		else
-			if ($value === NULL)
-				unset(self::$_config[$key]);
-			else
-				self::$_config[$key] = $value;
+			self::$_config[$key] = $value;
 	}
 	
 	// Creates a local redirect.
@@ -95,11 +94,13 @@ final class RSMVC
 		
 		$view = View::getInstance();
 		
-		$view->display('errorPage.php', array(
+		$view->save(array(
 			'errorCode' => $errorCode,
 			'errorText' => $errorText,
 			'message' => $message
 		));
+		
+		$view->display('errorPage.php');
 		
 		exit;
 	}
@@ -110,7 +111,7 @@ final class RSMVC
 		self::$timer = microtime(TRUE);
 		
 		// Register the autoloader.
-		spl_autoload_register(array('RSMVC', 'autoload'));
+		spl_autoload_register(array(get_class(), 'autoload'));
 		
 		// Load and store the config.
 		require_once ROOT . 'app/configs/config.php';
@@ -139,8 +140,7 @@ final class RSMVC
 			self::errorPage($_GET['_errorPage']);
 		
 		// Separate URL from query string.
-		$url = explode('?', $_SERVER['REQUEST_URI'], 2);
-		$url = $realUrl = strtolower($url[0]);
+		$url = $realUrl = strtolower(explode('?', $_SERVER['REQUEST_URI'], 2)[0]);
 		
 		// Compare any routes to the URL.
 		if (isset(self::$_config['routes']))
