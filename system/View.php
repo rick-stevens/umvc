@@ -39,10 +39,10 @@ class View
 			$this->_vars[$key] = $value;
 	}
 	
-	public function fetch($_fileName, $_cache = FALSE)
+	public function fetch($_fileName, $_caching = FALSE, $_cacheId = NULL)
 	{
-		if ($_cache && $this->isCached($_fileName))
-			$output = file_get_contents(ROOT . 'system/tmp/cache/' . md5($_fileName));
+		if ($_caching && $this->isCached($_fileName))
+			$output = file_get_contents(ROOT . 'system/tmp/cache/' . md5($_fileName . $_cacheId));
 		else {
 			extract($this->_vars);
 			
@@ -53,8 +53,8 @@ class View
 			$output = ob_get_contents();
 			ob_end_clean();
 			
-			if ($_cache) {
-				$handle = fopen(ROOT . 'system/tmp/cache/' . md5($_fileName), 'w') or RSMVC::errorPage(500, 'Couldn\'t write to cache folder.');
+			if ($_caching) {
+				$handle = fopen(ROOT . 'system/tmp/cache/' . md5($_fileName . $_cacheId), 'w') or RSMVC::errorPage(500, 'Couldn\'t write to cache folder.');
 				fwrite($handle, $output);
 				fclose($handle);
 			}
@@ -63,20 +63,20 @@ class View
 		return $output;
 	}
 	
-	public function display($fileName, $cache = FALSE)
+	public function display($fileName, $caching = FALSE, $cacheId = NULL)
 	{
-		$this->_views[] = $this->fetch($fileName, $cache);
+		$this->_views[] = $this->fetch($fileName, $caching, $cacheId);
 	}
 	
-	public function isCached($fileName)
+	public function isCached($fileName, $cacheId = NULL)
 	{
-		return file_exists(ROOT . 'system/tmp/cache/' . md5($fileName));
+		return file_exists(ROOT . 'system/tmp/cache/' . md5($fileName . $cacheId));
 	}
 	
-	public function clearCache($fileName = NULL)
+	public function clearCache($fileName = NULL, $cacheId = NULL)
 	{
 		if ($fileName)
-			@unlink(ROOT . 'system/tmp/cache/' . md5($fileName));
+			@unlink(ROOT . 'system/tmp/cache/' . md5($fileName . $cacheId));
 		else
 			foreach (glob(ROOT . 'system/tmp/cache/*') as $file)
 				@unlink($file);

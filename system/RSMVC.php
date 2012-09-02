@@ -5,7 +5,7 @@
 
 final class RSMVC
 {
-	const VERSION = '1.1.2';
+	const VERSION = '1.2.0';
 	
 	public static $timer = 0;
 	public static $queries = 0;
@@ -162,8 +162,8 @@ final class RSMVC
 				}
 			}
 		
-		// Manual multiple slash error (because explode doesn't separate empty segments).
-		if (preg_match('!/{2}!', $realUrl))
+		// Manual multiple slash error (because explode() doesn't separate empty segments).
+		if (strpos($realUrl, '//') !== FALSE)
 			self::errorPage(404);
 		
 		// Explode the real URL into segments.

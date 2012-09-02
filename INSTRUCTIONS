@@ -18,17 +18,17 @@ CONTROLLER
   $this->view->save( $key [, $value = NULL ] )
   Save a variable (or set of variables when $key is an associative array).
 
-  $this->view->display( $fileName [, $caching = FALSE ] )
+  $this->view->display( $fileName [, $caching = FALSE [, $cacheId = NULL ]] )
   Prints the view.
 
-  $this->view->fetch( $fileName [, $caching = FALSE ] )
+  $this->view->fetch( $fileName [, $caching = FALSE [, $cacheId = NULL ]] )
   Returns the view.
 
-  $this->view->isCached( $fileName )
+  $this->view->isCached( $fileName [, $cacheId = NULL ] )
   Checks if the view is cached.
 
-  $this->view->clearCache([ $fileName = NULL ])
-  Deletes the given view cache or entire cache directory.
+  $this->view->clearCache([ $fileName = NULL [, $cacheId = NULL ]] )
+  Deletes the given view's cache or entire cache directory.
 
 MODEL
   /app/models/*.php
