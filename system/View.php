@@ -15,8 +15,8 @@ class View
 	{
 		$replacements = array(
 			'[#queries#]' => RSMVC::$queries,
-			'[#timer#]' => round(microtime(TRUE) - RSMVC::$timer, 5),
-			'[#queryTimer#]' => round(RSMVC::$queryTimer, 5)
+			'[#timer#]' => round(microtime(TRUE) - RSMVC::$timer, 4),
+			'[#queryTimer#]' => round(RSMVC::$queryTimer, 4)
 		);
 		
 		foreach ($this->_views as $view) 
@@ -41,7 +41,7 @@ class View
 	
 	public function fetch($_fileName, $_caching = FALSE, $_cacheId = NULL)
 	{
-		if ($_caching && $this->isCached($_fileName))
+		if ($_caching && $this->isCached($_fileName, $_cacheId))
 			$output = file_get_contents(ROOT . 'system/tmp/cache/' . md5($_fileName . $_cacheId));
 		else {
 			extract($this->_vars);
