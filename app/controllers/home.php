@@ -17,8 +17,8 @@ class Home extends Controller
 	{
 		$model = new HomeModel;
 		$example = $model->get();
-		$this->view->save('example', $example);
 		
+		$this->view->save('example', $example);
 		$this->view->display('home/index.php');
 	}
 }
