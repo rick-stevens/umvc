@@ -8,6 +8,6 @@ class Controller {
 	
 	public function __construct()
 	{
-		$this->view = View::getInstance();
+		$this->view = new View;
 	}
 }

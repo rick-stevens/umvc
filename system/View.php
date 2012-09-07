@@ -5,12 +5,10 @@
 
 class View
 {
-	private static $_instance = NULL;
 	private $_views = array();
 	private $_vars = array();
 	
-	private function __construct() {}
-	
+	// Prints all queued views.
 	public function __destruct()
 	{
 		$replacements = array(
@@ -23,19 +21,13 @@ class View
 			echo preg_replace(array_keys($replacements), $replacements, $view);
 	}
 	
-	public static function getInstance()
-	{
-		if ( ! isset(self::$_instance))
-			self::$_instance = new View;
-		
-		return self::$_instance;
-	}
-	
+	// Checks if a view is cached.
 	public function isCached($fileName, $cacheId = NULL)
 	{
 		return file_exists(ROOT . 'system/tmp/cache/' . md5($fileName . $cacheId));
 	}
 	
+	// Clears a view's cache or the entire cache directory.
 	public function clearCache($fileName = NULL, $cacheId = NULL)
 	{
 		if ($fileName)
@@ -45,6 +37,7 @@ class View
 				@unlink($file);
 	}
 	
+	// Stores view variables.
 	public function save($key, $value = NULL)
 	{
 		if (is_array($key))
@@ -53,6 +46,7 @@ class View
 			$this->_vars[$key] = $value;
 	}
 	
+	// Returns a view.
 	public function fetch($_fileName, $_caching = FALSE, $_cacheId = NULL)
 	{
 		if ($_caching && $this->isCached($_fileName, $_cacheId))
@@ -77,6 +71,7 @@ class View
 		return $output;
 	}
 	
+	// Queues a view to print.
 	public function display($fileName, $caching = FALSE, $cacheId = NULL)
 	{
 		$this->_views[] = $this->fetch($fileName, $caching, $cacheId);

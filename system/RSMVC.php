@@ -92,7 +92,7 @@ final class RSMVC
 		
 		header($serverProtocol . ' ' . $errorCode . ' ' . $errorText, TRUE, $errorCode);
 		
-		$view = View::getInstance();
+		$view = new View;
 		
 		$view->save(array(
 			'errorCode' => $errorCode,
