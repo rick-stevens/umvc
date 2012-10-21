@@ -5,7 +5,7 @@
 
 final class RSMVC
 {
-	const VERSION = '1.2.0';
+	const VERSION = '1.2.1';
 	
 	public static $timer = 0;
 	public static $queries = 0;
@@ -140,7 +140,8 @@ final class RSMVC
 			self::errorPage($_GET['_errorPage']);
 		
 		// Separate URL from query string.
-		$url = $realUrl = strtolower(explode('?', $_SERVER['REQUEST_URI'], 2)[0]);
+		$uri = explode('?', $_SERVER['REQUEST_URI'], 2);
+		$url = $realUrl = strtolower($uri[0]);
 		
 		// Compare any routes to the URL.
 		if (isset(self::$_config['routes']))
