@@ -1,4 +1,5 @@
 <!doctype html>
+<!-- RSMVC: Page loaded in #timer# seconds (#queries# database queries took #queryTimer# seconds). -->
 <html lang="en">
 <head>
 	<meta charset="utf-8">

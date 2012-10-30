@@ -3,6 +3,9 @@
  // rsmvc.googlecode.com //
 //////////////////////////
 
+// (optional) Override the locale for date formatting, etc.
+#setlocale(LC_ALL, 'en_US.UTF-8');
+
 // TRUE: display_errors, FALSE: log_errors (/system/tmp/logs/error.log).
 $config['development'] = TRUE;
 
@@ -16,4 +19,4 @@ $config['development'] = TRUE;
 #$config['db']['password'] = '';
 
 // Routes: $config['routes'][ $match ] = array( $replacement [, $redirect = FALSE [, $statusCode = 302 ]] )
-$config['routes']['/'] = array('/home/');
+$config['routes']['/'] = array('/example/');

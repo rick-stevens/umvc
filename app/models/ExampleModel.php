@@ -4,7 +4,7 @@
 //////////////////////////
 
 // Example model
-class HomeModel extends Model
+class ExampleModel extends Model
 {
 	/*
 	public function __construct()
