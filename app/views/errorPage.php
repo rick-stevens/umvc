@@ -5,19 +5,19 @@ if ( ! isset($message))
 		case 400:
 			$message = 'The request cannot be fulfilled due to bad syntax.';
 			break;
-		
+
 		case 401:
 			$message = 'You are not authorized to view this page.';
 			break;
-		
+
 		case 403:
 			$message = 'You cannot view this page.';
 			break;
-		
+
 		case 404:
 			$message = 'The page you were looking for cannot be found.';
 			break;
-		
+
 		default:
 			$message = 'Something went wrong.';
 			break;

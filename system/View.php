@@ -7,7 +7,7 @@ class View
 {
 	private $_views = array();
 	private $_vars = array();
-	
+
 	// Prints all queued views.
 	public function __destruct()
 	{
@@ -16,17 +16,17 @@ class View
 			'[#timer#]' => round(microtime(TRUE) - RSMVC::$timer, 4),
 			'[#queryTimer#]' => round(RSMVC::$queryTimer, 4)
 		);
-		
-		foreach ($this->_views as $view) 
+
+		foreach ($this->_views as $view)
 			echo preg_replace(array_keys($replacements), $replacements, $view);
 	}
-	
+
 	// Checks if a view is cached.
 	public function isCached($fileName, $cacheId = NULL)
 	{
 		return file_exists(ROOT . 'system/tmp/cache/' . md5($fileName . $cacheId));
 	}
-	
+
 	// Clears a view's cache or the entire cache directory.
 	public function clearCache($fileName = NULL, $cacheId = NULL)
 	{
@@ -36,7 +36,7 @@ class View
 			foreach (glob(ROOT . 'system/tmp/cache/*') as $file)
 				@unlink($file);
 	}
-	
+
 	// Stores view variables.
 	public function save($key, $value = NULL)
 	{
@@ -45,32 +45,32 @@ class View
 		else
 			$this->_vars[$key] = $value;
 	}
-	
+
 	// Returns a view.
 	public function fetch($_fileName, $_caching = FALSE, $_cacheId = NULL)
 	{
-		if ($_caching && $this->isCached($_fileName, $_cacheId))
+		if ($_caching && $this->isCached($_fileName, $_cacheId)) {
 			$output = @file_get_contents(ROOT . 'system/tmp/cache/' . md5($_fileName . $_cacheId));
-		else {
+		} else {
 			extract($this->_vars);
-			
+
 			$config = RSMVC::getConfig();
-			
+
 			ob_start();
 			require ROOT . 'app/views/' . $_fileName;
 			$output = ob_get_contents();
 			ob_end_clean();
-			
+
 			if ($_caching) {
 				$handle = @fopen(ROOT . 'system/tmp/cache/' . md5($_fileName . $_cacheId), 'w') or RSMVC::errorPage(500, 'Couldn\'t write to cache folder.');
 				fwrite($handle, $output);
 				fclose($handle);
 			}
 		}
-		
+
 		return $output;
 	}
-	
+
 	// Queues a view to print.
 	public function display($fileName, $caching = FALSE, $cacheId = NULL)
 	{

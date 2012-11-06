@@ -6,7 +6,7 @@
 class Model
 {
 	public $db = NULL;
-	
+
 	public function __construct()
 	{
 		if ($dbConfig = RSMVC::getConfig('db')) {
@@ -20,7 +20,7 @@ class Model
 			} catch (Exception $e) {
 				RSMVC::errorPage(500, 'Database error: ' . $e->getMessage());
 			}
-			
+
 			// Unset db config for security.
 			RSMVC::setConfig('db', NULL);
 		}

@@ -12,7 +12,7 @@ class ExampleModel extends Model
 		parent::__construct();
 	}
 	*/
-	
+
 	public function get()
 	{
 		// Database example:
@@ -22,12 +22,12 @@ class ExampleModel extends Model
 			FROM `example`
 		');
 */
-		
+
 		// Static example:
 		$query = array(
 			'foo' => 'bar'
 		);
-		
+
 		return $query;
 	}
 }
