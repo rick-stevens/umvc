@@ -48,7 +48,8 @@ final class RSMVC
 			return self::$_config;
 	}
 
-	// If $key is an array, it will array_merge itself with the existing config. Else if $value is NULL, it unsets the $key row.
+	// If $key is an array, it will array_merge itself with the existing config.
+	// Else if $value is NULL, it unsets the $key row.
 	public static function setConfig($key, $value = NULL)
 	{
 		if (is_array($key))
@@ -66,7 +67,8 @@ final class RSMVC
 		exit;
 	}
 
-	// Prints an error page. If $message is not set, /app/views/errorPage.php will print one based on the $errorCode.
+	// Prints an error page.
+	// If $message is not set, /app/views/errorPage.php will print one based on the $errorCode.
 	public static function errorPage($errorCode, $message = NULL)
 	{
 		$errorText = self::$_errorCodes[$errorCode];

@@ -24,8 +24,8 @@ if ( ! isset($message))
 	}
 ?>
 
-<h1><?=$errorCode?>: <?=$errorText?></h1>
-<p><?=$message?></p>
-<p><?=$config['root'] . htmlspecialchars(substr($_SERVER['REQUEST_URI'], 1))?></p>
+<h1><?php echo $errorCode; ?>: <?php echo $errorText; ?></h1>
+<p><?php echo $message; ?></p>
+<p><?php echo $config['root'] . htmlspecialchars(substr($_SERVER['REQUEST_URI'], 1)); ?></p>
 
 <?php include ROOT . 'app/views/includes/footer.php'; ?>
