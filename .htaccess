@@ -28,14 +28,16 @@ ErrorDocument 503 /index.php?_errorPage=503
 ErrorDocument 504 /index.php?_errorPage=504
 ErrorDocument 505 /index.php?_errorPage=505
 
-RewriteEngine on
-RewriteBase /
+<IfModule mod_rewrite.c>
+	RewriteEngine On
+	RewriteBase /
 
-# Force trailing slash (permanent redirect).
-RewriteCond $1 !^(index\.php|static|robots\.txt)
-RewriteCond %{REQUEST_URI} !/$
-RewriteRule ^(.*)$ /$1/ [L,R=301]
+	# Force trailing slash (permanent redirect).
+	RewriteCond $1 !^(index\.php|static|robots\.txt)
+	RewriteCond %{REQUEST_URI} !/$
+	RewriteRule ^(.*)$ /$1/ [L,R=301]
 
-# Route everything except items listed below through index.php.
-RewriteCond $1 !^(index\.php|static|robots\.txt)
-RewriteRule ^(.*)$ index.php [L]
+	# Route everything except items listed below through index.php.
+	RewriteCond $1 !^(index\.php|static|robots\.txt)
+	RewriteRule ^(.*)$ index.php [L]
+</IfModule>
