@@ -20,12 +20,12 @@ final class RSMVC
 		500 => 'Internal Server Error'
 	);
 
-	// Static class, no need to create instances.
+	// Static class, no need to create instances
 	private function __construct() {}
 
 	public static function autoload($className)
 	{
-		// Note the missing controllers folder, these are loaded manually in self::init().
+		// Note the missing controllers folder, these are loaded manually in self::init()
 		$directories = array(
 			ROOT . 'app/models/',
 			ROOT . 'app/plugins/',
@@ -39,7 +39,7 @@ final class RSMVC
 			}
 	}
 
-	// Returns the config or part of the config when $key is set.
+	// Returns the config or part of the config when $key is set
 	public static function getConfig($key = NULL)
 	{
 		if (isset($key))
@@ -48,8 +48,8 @@ final class RSMVC
 			return self::$_config;
 	}
 
-	// If $key is an array, it will array_merge itself with the existing config.
-	// Else if $value is NULL, it unsets the $key row.
+	// If $key is an array, it will array_merge itself with the existing config
+	// Else if $value is NULL, it unsets the $key row
 	public static function setConfig($key, $value = NULL)
 	{
 		if (is_array($key))
@@ -60,15 +60,15 @@ final class RSMVC
 			self::$_config[$key] = $value;
 	}
 
-	// Creates a local redirect.
+	// Creates a local redirect
 	public static function redirect($location, $statusCode = 302)
 	{
 		header('Location: ' . self::$_config['root'] . $location, TRUE, $statusCode);
 		exit;
 	}
 
-	// Prints an error page.
-	// If $message is not set, /app/views/errorPage.php will print one based on the $errorCode.
+	// Prints an error page
+	// If $message is not set, /app/views/errorPage.php will print one based on the $errorCode
 	public static function errorPage($errorCode, $message = NULL)
 	{
 		$errorText = self::$_errorCodes[$errorCode];
@@ -89,22 +89,22 @@ final class RSMVC
 		exit;
 	}
 
-	// Store the config, store and handle URL segments, handle routing/redirects, handle Apache error pages and call the controller.
+	// Store the config, store and handle URL segments, handle routing/redirects, handle Apache error pages and call the controller
 	public static function init()
 	{
 		self::$timer = microtime(TRUE);
 
-		// Register the autoloader.
+		// Register the autoloader
 		spl_autoload_register(array(get_class(), 'autoload'));
 
-		// Load and store the config.
+		// Load and store the config
 		require_once ROOT . 'app/configs/config.php';
 
 		if ( ! isset($config['development']))
 			$config['development'] = FALSE;
 
 		if ( ! isset($config['root']))
-			$config['root'] = ($_SERVER['HTTPS'] == 'on' || $_SERVER['SERVER_PORT'] == 443 ? 'https://' : 'http://') . $_SERVER['HTTP_HOST'] . '/';
+			$config['root'] = ($_SERVER['HTTPS'] == 'on' || $_SERVER['SERVER_PORT'] == 443 ? 'https://' : 'http://') . $_SERVER['HTTP_HOST'];
 
 		self::setConfig($config);
 
@@ -119,46 +119,46 @@ final class RSMVC
 			ini_set('error_log', ROOT . 'system/tmp/logs/error.log');
 		}
 
-		// Handle Apache error documents (see /.htaccess).
+		// Handle Apache error documents (see /.htaccess)
 		if (isset($_GET['_errorPage']) && array_key_exists($_GET['_errorPage'], self::$_errorCodes))
 			self::errorPage($_GET['_errorPage']);
 
-		// Separate URL from query string.
+		// Separate URL from query string
 		$uri = explode('?', $_SERVER['REQUEST_URI'], 2);
 		$url = $realUrl = strtolower($uri[0]);
 
-		// Compare any routes to the URL.
+		// Compare any routes to the URL
 		if (isset(self::$_config['routes']))
 			foreach (self::$_config['routes'] as $match => $route) {
-				// Force start-to-end match.
+				// Force start-to-end match
 				$match = '!^' . $match . '$!';
 
 				if (preg_match($match, $url)) {
 					$realUrl = preg_replace($match, $route[0], $url);
 
-					// Handle redirects.
+					// Handle redirects
 					if (isset($route[1]) && $route[1])
 						if (isset($route[2]))
-							self::redirect(substr($realUrl, 1), $route[2]);
+							self::redirect($realUrl, $route[2]);
 						else
-							self::redirect(substr($realUrl, 1));
+							self::redirect($realUrl);
 
 					break;
 				}
 			}
 
-		// Manual multiple slash error (because explode() doesn't separate empty segments).
+		// Manual multiple slash error (because explode() doesn't separate empty segments)
 		if (strpos($realUrl, '//') !== FALSE)
 			self::errorPage(404);
 
-		// Explode the real URL into segments.
+		// Explode the real URL into segments
 		$args = explode('/', trim($realUrl, '/'));
 		$controller = array_shift($args);
 
-		// When there's no method supplied, fall back to $controller->index().
+		// When there's no method supplied, fall back to the $controller->index() method
 		$method = count($args) ? array_shift($args) : 'index';
 
-		// Call the appropriate controller and method.
+		// Call the appropriate controller and method
 		if (file_exists(ROOT . 'app/controllers/' . $controller . '.php')) {
 			require_once ROOT . 'app/controllers/' . $controller . '.php';
 
@@ -168,7 +168,7 @@ final class RSMVC
 			}
 		}
 
-		// No controller and/or method was found, show a 404 error page.
+		// No controller and/or method was found; throw a 404
 		self::errorPage(404);
 	}
 }

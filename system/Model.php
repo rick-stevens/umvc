@@ -18,10 +18,10 @@ class Model
 					array(PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES utf8')
 				);
 			} catch (Exception $e) {
-				RSMVC::errorPage(500, 'Database error: ' . $e->getMessage());
+				RSMVC::errorPage(500, 'RSMVC: Database error: ' . $e->getMessage());
 			}
 
-			// Unset db config for security.
+			// Unset db config for security
 			RSMVC::setConfig('db', NULL);
 		}
 	}

@@ -15,15 +15,15 @@ class ExampleModel extends Model
 
 	public function get()
 	{
-		// Database example:
-/*
-		$query = $this->db->query('
-			SELECT *
-			FROM `example`
-		');
-*/
+		// Database example
+		/*
+		$query = $this->db->query(
+			'SELECT * ' .
+			'FROM `example`'
+		);
+		*/
 
-		// Static example:
+		// Static example
 		$query = array(
 			'foo' => 'bar'
 		);

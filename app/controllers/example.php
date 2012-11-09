@@ -16,9 +16,9 @@ class Example extends Controller
 	public function index(/* $arg1 = NULL, $arg2 = NULL, etc. */)
 	{
 		$model = new ExampleModel;
-		$data = $model->get();
+		$exampleData = $model->get();
 
-		$this->view->save('example', $data);
+		$this->view->save('exampleData', $exampleData);
 		$this->view->display('example/index.php');
 	}
 }
