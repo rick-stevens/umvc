@@ -5,7 +5,7 @@
 
 define('ROOT', dirname(__FILE__) . '/');
 
-require_once ROOT . 'system/RSMVC.php';
+require_once ROOT . 'system/MVC.php';
 
 // Initialize the application
-RSMVC::init();
+MVC::init();

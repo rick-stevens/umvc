@@ -12,9 +12,9 @@ class View
 	public function __destruct()
 	{
 		$replacements = array(
-			'[#queries#]' => RSMVC::$queries,
-			'[#timer#]' => round(microtime(TRUE) - RSMVC::$timer, 4),
-			'[#queryTimer#]' => round(RSMVC::$queryTimer, 4)
+			'[#queries#]' => MVC::$queries,
+			'[#timer#]' => round(microtime(TRUE) - MVC::$timer, 4),
+			'[#queryTimer#]' => round(MVC::$queryTimer, 4)
 		);
 
 		foreach ($this->_views as $view)
@@ -54,7 +54,7 @@ class View
 		} else {
 			extract($this->_vars);
 
-			$config = RSMVC::getConfig();
+			$config = MVC::getConfig();
 
 			ob_start();
 			require ROOT . 'app/views/' . $_fileName;
@@ -62,7 +62,7 @@ class View
 			ob_end_clean();
 
 			if ($_caching) {
-				$handle = @fopen(ROOT . 'system/tmp/cache/' . md5($_fileName . $_cacheId), 'w') or RSMVC::errorPage(500, 'RSMVC: Couldn\'t write to cache folder.');
+				$handle = @fopen(ROOT . 'system/tmp/cache/' . md5($_fileName . $_cacheId), 'w') or MVC::errorPage(500, 'MVC: Couldn\'t write to cache folder.');
 				fwrite($handle, $output);
 				fclose($handle);
 			}

@@ -9,9 +9,8 @@
 // TRUE: display_errors, FALSE: log_errors (/system/tmp/logs/error.log)
 $config['development'] = TRUE;
 
-// (optional) Uncomment and change this to your website's URL + subfolder(s) (see /.htaccess for additional subfolder settings)
-// No trailing slash!
-#$config['root'] = 'http://example.com/subfolder';
+// (optional) Uncomment and change this to your website's base URL (NO trailing slash!)
+#$config['root'] = 'http://example.com';
 
 // (optional) Uncomment these to enable PDO database access in models through $this->db
 #$config['db']['host'] = 'localhost';
@@ -19,5 +18,5 @@ $config['development'] = TRUE;
 #$config['db']['username'] = '';
 #$config['db']['password'] = '';
 
-// Routes: $config['routes'][ $match ] = array( $replacement [, $redirect = FALSE [, $statusCode = 302 ]] )
+// Routes: $config['routes'][ $match (regex) ] = array( $replacement (regex) [, $redirect = FALSE [, $statusCode = 302 ]] )
 $config['routes']['/'] = array('/example');

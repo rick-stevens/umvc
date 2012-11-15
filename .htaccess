@@ -1,13 +1,11 @@
-# When using a subfolder, prepend it manually to "/index.php" (lines 3-7), "/" (line 17) and "/$1" (line 25)
-
 ErrorDocument 400 /index.php?_errorPage=400
 ErrorDocument 401 /index.php?_errorPage=401
 ErrorDocument 403 /index.php?_errorPage=403
 ErrorDocument 404 /index.php?_errorPage=404
 ErrorDocument 500 /index.php?_errorPage=500
 
-# Disable directory listing (safety)
 <IfModule mod_autoindex.c>
+	# Disable directory listing (safety)
 	Options -Indexes
 </IfModule>
 
@@ -25,6 +23,7 @@ ErrorDocument 500 /index.php?_errorPage=500
 	RewriteRule ^(.*)/$ /$1 [R=301,L]
 
 	# Route everything except items listed below through index.php
-	RewriteCond $1 !^(index\.php|static|robots\.txt|humans\.txt|favicon\.ico|apple-touch-icon\.png)
+	RewriteCond $1 !^(static/|index\.php|robots\.txt|humans\.txt|favicon\.ico)
+	RewriteCond $1 !(sitemap\.xml)$
 	RewriteRule ^(.*)$ index.php [L]
 </IfModule>

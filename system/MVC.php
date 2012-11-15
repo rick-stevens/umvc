@@ -3,9 +3,9 @@
  // rsmvc.googlecode.com //
 //////////////////////////
 
-final class RSMVC
+final class MVC
 {
-	const VERSION = '1.2.2';
+	const VERSION = 'rsmvc-1.2.3';
 
 	public static $timer = 0;
 	public static $queries = 0;
@@ -68,20 +68,20 @@ final class RSMVC
 	}
 
 	// Prints an error page
-	// If $message is not set, /app/views/errorPage.php will print one based on the $errorCode
-	public static function errorPage($errorCode, $message = NULL)
+	// If $errorMessage is not set, /app/views/errorPage.php will print one based on the $errorCode
+	public static function errorPage($errorCode, $errorMessage = NULL)
 	{
-		$errorText = self::$_errorCodes[$errorCode];
+		$errorDescription = self::$_errorCodes[$errorCode];
 		$serverProtocol = isset($_SERVER['SERVER_PROTOCOL']) ? $_SERVER['SERVER_PROTOCOL'] : 'HTTP/1.1';
 
-		header($serverProtocol . ' ' . $errorCode . ' ' . $errorText, TRUE, $errorCode);
+		header($serverProtocol . ' ' . $errorCode . ' ' . $errorDescription, TRUE, $errorCode);
 
 		$view = new View;
 
-		$view->save(array(
-			'errorCode' => $errorCode,
-			'errorText' => $errorText,
-			'message' => $message
+		$view->save('error', array(
+			'code' => $errorCode,
+			'description' => $errorDescription,
+			'message' => $errorMessage
 		));
 
 		$view->display('errorPage.php');
