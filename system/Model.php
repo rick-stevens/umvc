@@ -18,11 +18,11 @@ class Model
 					array(PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES utf8')
 				);
 			} catch (Exception $e) {
-				MVC::errorPage(500, 'MVC: Database error: ' . $e->getMessage());
+				MVC::errorPage(500, 'Database error: ' . $e->getMessage());
 			}
 
 			// Unset db config for security
-			MVC::setConfig('db', NULL);
+			MVC::unsetConfig('db');
 		}
 	}
 }

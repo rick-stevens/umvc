@@ -7,9 +7,11 @@ final class MVC
 {
 	const VERSION = 'rsmvc-1.2.3';
 
-	public static $timer = 0;
-	public static $queries = 0;
-	public static $queryTimer = 0;
+	public static $stats = array(
+		'timer' => 0,
+		'queries' => 0,
+		'queryTimer' => 0
+	);
 
 	private static $_config = array();
 	private static $_errorCodes = array(
@@ -28,7 +30,6 @@ final class MVC
 		// Note the missing controllers folder, these are loaded manually in self::init()
 		$directories = array(
 			ROOT . 'app/models/',
-			ROOT . 'app/plugins/',
 			ROOT . 'system/'
 		);
 
@@ -37,6 +38,15 @@ final class MVC
 				require_once $dir . $className . '.php';
 				return;
 			}
+	}
+
+	// If $key is an array, it will array_merge itself with the existing config
+	public static function setConfig($key, $value = NULL)
+	{
+		if (is_array($key))
+			self::$_config = array_merge(self::$_config, $key);
+		else
+			self::$_config[$key] = $value;
 	}
 
 	// Returns the config or part of the config when $key is set
@@ -48,16 +58,10 @@ final class MVC
 			return self::$_config;
 	}
 
-	// If $key is an array, it will array_merge itself with the existing config
-	// Else if $value is NULL, it unsets the $key row
-	public static function setConfig($key, $value = NULL)
+	// Unsets the config $key's row
+	public static function unsetConfig($key)
 	{
-		if (is_array($key))
-			self::$_config = array_merge(self::$_config, $key);
-		elseif ($value === NULL)
-			unset(self::$_config[$key]);
-		else
-			self::$_config[$key] = $value;
+		unset(self::$_config[$key]);
 	}
 
 	// Creates a local redirect
@@ -92,7 +96,7 @@ final class MVC
 	// Store the config, store and handle URL segments, handle routing/redirects, handle Apache error pages and call the controller
 	public static function init()
 	{
-		self::$timer = microtime(TRUE);
+		self::$stats['timer'] = microtime(TRUE);
 
 		// Register the autoloader
 		spl_autoload_register(array(get_class(), 'autoload'));
@@ -124,15 +128,12 @@ final class MVC
 			self::errorPage($_GET['_errorPage']);
 
 		// Separate URL from query string
-		$uri = explode('?', $_SERVER['REQUEST_URI'], 2);
-		$url = $realUrl = strtolower($uri[0]);
+		$url = explode('?', $_SERVER['REQUEST_URI'], 2);
+		$url = $realUrl = strtolower($url[0]);
 
 		// Compare any routes to the URL
 		if (isset(self::$_config['routes']))
 			foreach (self::$_config['routes'] as $match => $route) {
-				// Force start-to-end match
-				$match = '!^' . $match . '$!';
-
 				if (preg_match($match, $url)) {
 					$realUrl = preg_replace($match, $route[0], $url);
 
