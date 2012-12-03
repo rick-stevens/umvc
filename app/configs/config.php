@@ -9,8 +9,8 @@
 // TRUE: display_errors, FALSE: log_errors (/system/tmp/logs/error.log)
 $config['development'] = TRUE;
 
-// (optional) Uncomment and change this to your website's base URL (NO trailing slash!)
-#$config['root'] = 'http://example.com';
+// (optional) Replace this with your domain: 'http://example.com' (NO trailing slash!)
+$config['root'] = ($_SERVER['HTTPS'] == 'on' || $_SERVER['SERVER_PORT'] == 443 ? 'https://' : 'http://') . $_SERVER['HTTP_HOST'];
 
 // (optional) Uncomment these to enable database access in models through $this->db (PDO)
 #$config['db']['host'] = 'localhost';
@@ -19,4 +19,4 @@ $config['development'] = TRUE;
 #$config['db']['password'] = '';
 
 // Routes (REQUEST_URI): $config['routes'][ $match (regex) ] = array( $replacement (regex) [, $redirect = FALSE [, $statusCode = 302 ]] )
-$config['routes']['#^/$#'] = array('/example');
+$config['routes']['#^/$#'] = array('/home');

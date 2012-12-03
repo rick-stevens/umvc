@@ -4,7 +4,7 @@
 //////////////////////////
 
 // Example controller
-class Example extends Controller
+class Home extends Controller
 {
 	/*
 	public function __construct()
@@ -15,10 +15,10 @@ class Example extends Controller
 
 	public function index(/* $arg1 = NULL, $arg2 = NULL, etc. */)
 	{
-		$model = new ExampleModel;
+		$model = new HomeModel;
 		$exampleData = $model->get();
 
 		$this->view->save('exampleData', $exampleData);
-		$this->view->display('example/index.php');
+		$this->view->display('home/index.php');
 	}
 }

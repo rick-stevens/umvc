@@ -5,7 +5,7 @@
 
 final class MVC
 {
-	const VERSION = 'rsmvc-1.2.3';
+	const VERSION = 'rsmvc-1.2.4';
 
 	public static $stats = array(
 		'timer' => 0,
@@ -103,23 +103,16 @@ final class MVC
 
 		// Load and store the config
 		require_once ROOT . 'app/configs/config.php';
-
-		if ( ! isset($config['development']))
-			$config['development'] = FALSE;
-
-		if ( ! isset($config['root']))
-			$config['root'] = ($_SERVER['HTTPS'] == 'on' || $_SERVER['SERVER_PORT'] == 443 ? 'https://' : 'http://') . $_SERVER['HTTP_HOST'];
-
 		self::setConfig($config);
 
 		if (self::$_config['development']) {
 			error_reporting(E_ALL);
-			ini_set('display_errors', 'On');
-			ini_set('log_errors', 'Off');
+			ini_set('display_errors', 'on');
+			ini_set('log_errors', 'off');
 		} else {
 			error_reporting(E_ALL);
-			ini_set('display_errors', 'Off');
-			ini_set('log_errors', 'On');
+			ini_set('display_errors', 'off');
+			ini_set('log_errors', 'on');
 			ini_set('error_log', ROOT . 'system/tmp/logs/error.log');
 		}
 

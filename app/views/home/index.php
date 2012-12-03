@@ -11,9 +11,9 @@
 		<p><b>Files used:</b></p>
 		<p>
 			/app/configs/config.php (<code>$config['routes']['/']</code>)<br>
-			/app/models/ExampleModel.php<br>
-			/app/views/example/index.php<br>
-			/app/controllers/example.php
+			/app/models/HomeModel.php<br>
+			/app/views/home/index.php<br>
+			/app/controllers/home.php
 		</p>
 		<pre><b>$exampleData</b> = <?php var_dump($exampleData); ?></pre>
 		<pre><b>$config</b> = <?php var_dump($config); ?></pre>
