@@ -5,7 +5,7 @@
 
 final class MVC
 {
-	const VERSION = 'rsmvc-1.2.4';
+	const VERSION = 'rsmvc-1.2.5';
 
 	public static $stats = array(
 		'timer' => 0,
@@ -122,31 +122,31 @@ final class MVC
 
 		// Separate URL from query string
 		$url = explode('?', $_SERVER['REQUEST_URI'], 2);
-		$url = $realUrl = strtolower($url[0]);
+		$url = $routedUrl = strtolower($url[0]);
 
 		// Compare any routes to the URL
 		if (isset(self::$_config['routes']))
 			foreach (self::$_config['routes'] as $match => $route) {
 				if (preg_match($match, $url)) {
-					$realUrl = preg_replace($match, $route[0], $url);
+					$routedUrl = preg_replace($match, $route[0], $url);
 
 					// Handle redirects
 					if (isset($route[1]) && $route[1])
 						if (isset($route[2]))
-							self::redirect($realUrl, $route[2]);
+							self::redirect($routedUrl, $route[2]);
 						else
-							self::redirect($realUrl);
+							self::redirect($routedUrl);
 
 					break;
 				}
 			}
 
 		// Manual multiple slash error (because explode() doesn't separate empty segments)
-		if (strpos($realUrl, '//') !== FALSE)
+		if (strpos($routedUrl, '//') !== FALSE)
 			self::errorPage(404);
 
 		// Explode the real URL into segments
-		$args = explode('/', trim($realUrl, '/'));
+		$args = explode('/', trim($routedUrl, '/'));
 		$controller = array_shift($args);
 
 		// When there's no method supplied, fall back to the $controller->index() method

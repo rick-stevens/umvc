@@ -9,7 +9,7 @@
 // TRUE: display_errors, FALSE: log_errors (/system/tmp/logs/error.log)
 $config['development'] = TRUE;
 
-// Replace this with your domain: 'http://example.com' (NO trailing slash!)
+// Example: 'http://example.com' (NO trailing slash!)
 $config['root'] = ($_SERVER['HTTPS'] == 'on' || $_SERVER['SERVER_PORT'] == 443 ? 'https://' : 'http://') . $_SERVER['HTTP_HOST'];
 
 // (optional) Uncomment these to enable database access in models through $this->db (PDO)
