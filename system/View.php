@@ -54,7 +54,7 @@ class View
 		} else {
 			extract($this->_vars);
 
-			$config = MVC::getConfig();
+			$config = MVC::$config;
 
 			ob_start();
 			require ROOT . 'app/views/' . $_fileName;

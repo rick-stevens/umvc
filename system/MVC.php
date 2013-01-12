@@ -7,13 +7,13 @@ final class MVC
 {
 	const VERSION = 'rsmvc-1.2.5';
 
+	public static $config = array();
 	public static $stats = array(
 		'timer' => 0,
 		'queries' => 0,
 		'queryTimer' => 0
 	);
 
-	private static $_config = array();
 	private static $_errorCodes = array(
 		400 => 'Bad Request',
 		401 => 'Unauthorized',
@@ -40,34 +40,10 @@ final class MVC
 			}
 	}
 
-	// If $key is an array, it will array_merge itself with the existing config
-	public static function setConfig($key, $value = NULL)
-	{
-		if (is_array($key))
-			self::$_config = array_merge(self::$_config, $key);
-		else
-			self::$_config[$key] = $value;
-	}
-
-	// Returns the config or part of the config when $key is set
-	public static function getConfig($key = NULL)
-	{
-		if (isset($key))
-			return isset(self::$_config[$key]) ? self::$_config[$key] : NULL;
-		else
-			return self::$_config;
-	}
-
-	// Unsets the config $key's row
-	public static function unsetConfig($key)
-	{
-		unset(self::$_config[$key]);
-	}
-
 	// Creates a local redirect
 	public static function redirect($location, $statusCode = 302)
 	{
-		header('Location: ' . self::$_config['root'] . $location, TRUE, $statusCode);
+		header('Location: ' . self::$config['root'] . $location, TRUE, $statusCode);
 		exit;
 	}
 
@@ -103,9 +79,9 @@ final class MVC
 
 		// Load and store the config
 		require_once ROOT . 'app/configs/config.php';
-		self::setConfig($config);
+		self::$config = $config;
 
-		if (self::$_config['development']) {
+		if (self::$config['development']) {
 			error_reporting(E_ALL);
 			ini_set('display_errors', 'on');
 			ini_set('log_errors', 'off');
@@ -125,8 +101,8 @@ final class MVC
 		$url = $routedUrl = strtolower($url[0]);
 
 		// Compare any routes to the URL
-		if (isset(self::$_config['routes']))
-			foreach (self::$_config['routes'] as $match => $route) {
+		if (isset(self::$config['routes']))
+			foreach (self::$config['routes'] as $match => $route) {
 				if (preg_match($match, $url)) {
 					$routedUrl = preg_replace($match, $route[0], $url);
 

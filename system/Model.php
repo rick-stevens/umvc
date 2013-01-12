@@ -9,12 +9,12 @@ class Model
 
 	public function __construct()
 	{
-		if ($dbConfig = MVC::getConfig('db')) {
+		if (isset(MVC::$config['db'])) {
 			try {
 				$this->db = new Database(
-					'mysql:host=' . $dbConfig['host'] . ';dbname=' . $dbConfig['database'],
-					$dbConfig['username'],
-					$dbConfig['password'],
+					'mysql:host=' . MVC::$config['db']['host'] . ';dbname=' . MVC::$config['db']['database'],
+					MVC::$config['db']['username'],
+					MVC::$config['db']['password'],
 					array(PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES utf8')
 				);
 			} catch (Exception $e) {
@@ -22,7 +22,7 @@ class Model
 			}
 
 			// Unset db config for security
-			MVC::unsetConfig('db');
+			unset(MVC::$config['db']);
 		}
 	}
 }
