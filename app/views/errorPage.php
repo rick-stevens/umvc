@@ -23,7 +23,7 @@ if ( ! isset($error['message']))
 	}
 ?>
 <!doctype html>
-<!-- RSMVC: Page loaded in #timer# seconds (#queries# database queries took #queryTimer# seconds) -->
+<!-- #version#: Page loaded in #timer# ms (#queries# database queries took #queryTimer# ms) -->
 <html lang="en">
 	<head>
 		<meta charset="utf-8">
