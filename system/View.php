@@ -14,8 +14,8 @@ class View
 		$replacements = array(
 			'[#version#]' => MVC::VERSION,
 			'[#queries#]' => MVC::$stats['queries'],
-			'[#timer#]' => round((microtime(TRUE) - MVC::$stats['timer']) * 1000, 1),
-			'[#queryTimer#]' => round(MVC::$stats['queryTimer'] * 1000, 1)
+			'[#timer#]' => round(microtime(TRUE) - MVC::$stats['timer'], 3),
+			'[#queryTimer#]' => round(MVC::$stats['queryTimer'], 3)
 		);
 
 		foreach ($this->_views as $view)
