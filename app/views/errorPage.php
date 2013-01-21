@@ -29,6 +29,7 @@ if ( ! isset($error['message']))
 		<meta charset="utf-8">
 		<title><?php echo $error['code']; ?>: <?php echo $error['description']; ?></title>
 		<meta name="description" content="">
+		<meta name="viewport" content="width=device-width">
 		<link rel="stylesheet" href="<?php echo $config['root']; ?>/static/css/main.css">
 	</head>
 	<body>

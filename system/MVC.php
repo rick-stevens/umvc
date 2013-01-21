@@ -102,7 +102,7 @@ final class MVC
 
 		// Compare any routes to the URL
 		if (isset(self::$config['routes']))
-			foreach (self::$config['routes'] as $match => $route) {
+			foreach (self::$config['routes'] as $match => $route)
 				if (preg_match($match, $url)) {
 					$routedUrl = preg_replace($match, $route[0], $url);
 
@@ -115,7 +115,6 @@ final class MVC
 
 					break;
 				}
-			}
 
 		// Manual multiple slash error (because explode() doesn't separate empty segments)
 		if (strpos($routedUrl, '//') !== FALSE)
