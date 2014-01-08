@@ -13,21 +13,23 @@ class HomeModel extends Model
 	}
 	*/
 
-	public function get()
+	public function example()
 	{
 		// Database example
 		/*
-		$query = $this->db->query(
-			'SELECT * ' .
-			'FROM `example`'
-		);
+		$query = $this->db->query('
+			SELECT *
+			FROM `example`
+		');
+
+		$result = $query->fetchAll(PDO::FETCH_ASSOC);
 		*/
 
 		// Static example
-		$query = array(
+		$result = array(
 			'foo' => 'bar'
 		);
 
-		return $query;
+		return $result;
 	}
 }
