@@ -3,7 +3,7 @@
  // rsmvc.googlecode.com //
 //////////////////////////
 
-class Database extends PDO
+class PDOWrapper extends PDO
 {
 	public function query($statement)
 	{
