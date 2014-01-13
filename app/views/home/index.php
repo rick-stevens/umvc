@@ -10,7 +10,7 @@
 	</head>
 	<body>
 		<!--[if lt IE 8]>
-		<p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/" target="_blank">upgrade your browser</a> to improve the speed, security and experience.</p>
+		<p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/" target="_blank">upgrade your browser</a> to improve speed, security and experience.</p>
 		<![endif]-->
 
 		<pre><b>$example</b> = <?php var_dump($example); ?></pre>
