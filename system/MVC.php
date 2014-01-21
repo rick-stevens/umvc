@@ -5,7 +5,7 @@
 
 final class MVC
 {
-	const VERSION = 'rsmvc-1.3.0';
+	const VERSION = 'rsmvc-1.3.1';
 
 	public static $config = array();
 	public static $stats = array(
@@ -45,6 +45,19 @@ final class MVC
 	{
 		header('Location: ' . self::$config['root'] . $location, TRUE, $statusCode);
 		exit;
+	}
+
+	// Recursively trims and replaces multiple whitespace characters with a single space
+	public static function strip($input)
+	{
+		if (is_array($input)) {
+			foreach ($input as $k => $v)
+				$input[$k] = self::strip($v);
+
+			return $input;
+		} else {
+			return trim(preg_replace('#\s+#', ' ', $input));
+		}
 	}
 
 	// Prints an error page
