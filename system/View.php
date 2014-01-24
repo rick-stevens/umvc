@@ -15,7 +15,7 @@ class View
 			'[#version#]' => MVC::VERSION,
 			'[#queries#]' => MVC::$stats['queries'],
 			'[#timer#]' => round((microtime(TRUE) - MVC::$stats['timer']) * 1000),
-			'[#queryTimer#]' => round(MVC::$stats['queryTimer'] * 1000)
+			'[#query_timer#]' => round(MVC::$stats['query_timer'] * 1000)
 		);
 
 		foreach ($this->_views as $view)
@@ -23,16 +23,16 @@ class View
 	}
 
 	// Checks if a view is cached
-	public function isCached($fileName, $cacheId = NULL)
+	public function isCached($file_name, $cache_id = NULL)
 	{
-		return file_exists(ROOT . 'system/tmp/cache/' . md5($fileName . $cacheId));
+		return file_exists(ROOT . 'system/tmp/cache/' . md5($file_name . $cache_id));
 	}
 
 	// Clears a view's cache or the entire cache directory
-	public function clearCache($fileName = NULL, $cacheId = NULL)
+	public function clearCache($file_name = NULL, $cache_id = NULL)
 	{
-		if ($fileName)
-			@unlink(ROOT . 'system/tmp/cache/' . md5($fileName . $cacheId));
+		if ($file_name)
+			@unlink(ROOT . 'system/tmp/cache/' . md5($file_name . $cache_id));
 		else
 			foreach (glob(ROOT . 'system/tmp/cache/*') as $file)
 				@unlink($file);
@@ -48,22 +48,22 @@ class View
 	}
 
 	// Returns a view
-	public function fetch($_fileName, $_caching = FALSE, $_cacheId = NULL)
+	public function fetch($_file_name, $_caching = FALSE, $_cache_id = NULL)
 	{
-		if ($_caching && $this->isCached($_fileName, $_cacheId)) {
-			$output = @file_get_contents(ROOT . 'system/tmp/cache/' . md5($_fileName . $_cacheId));
+		if ($_caching && $this->isCached($_file_name, $_cache_id)) {
+			$output = @file_get_contents(ROOT . 'system/tmp/cache/' . md5($_file_name . $_cache_id));
 		} else {
 			extract($this->_vars);
 
 			$config = MVC::$config;
 
 			ob_start();
-			require ROOT . 'app/views/' . $_fileName;
+			require ROOT . 'app/views/' . $_file_name;
 			$output = ob_get_contents();
 			ob_end_clean();
 
 			if ($_caching) {
-				$handle = @fopen(ROOT . 'system/tmp/cache/' . md5($_fileName . $_cacheId), 'w') or MVC::errorPage(500, 'Couldn\'t write to cache folder.');
+				$handle = @fopen(ROOT . 'system/tmp/cache/' . md5($_file_name . $_cache_id), 'w') or MVC::errorPage(500, 'Couldn\'t write to cache folder.');
 				fwrite($handle, $output);
 				fclose($handle);
 			}
@@ -73,8 +73,8 @@ class View
 	}
 
 	// Queues a view to print
-	public function display($fileName, $caching = FALSE, $cacheId = NULL)
+	public function display($file_name, $caching = FALSE, $cache_id = NULL)
 	{
-		$this->_views[] = $this->fetch($fileName, $caching, $cacheId);
+		$this->_views[] = $this->fetch($file_name, $caching, $cache_id);
 	}
 }

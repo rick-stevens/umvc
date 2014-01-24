@@ -9,8 +9,8 @@
 // TRUE: display_errors, FALSE: log_errors (/system/tmp/logs/error.log)
 $config['development'] = TRUE;
 
-// Example: 'http://example.com' (NO trailing slash!)
-$config['root'] = ($_SERVER['HTTPS'] == 'on' || $_SERVER['SERVER_PORT'] == 443 ? 'https://' : 'http://') . $_SERVER['HTTP_HOST'];
+// Example: 'example.com' (NO trailing slash!)
+$config['root'] = $_SERVER['HTTP_HOST'];
 
 // (optional) Uncomment these to enable database access in models through $this->db (PDO)
 #$config['db']['host'] = 'localhost';
@@ -18,5 +18,5 @@ $config['root'] = ($_SERVER['HTTPS'] == 'on' || $_SERVER['SERVER_PORT'] == 443 ?
 #$config['db']['username'] = '';
 #$config['db']['password'] = '';
 
-// Routes (REQUEST_URI): $config['routes'][ $match (regex) ] = array( $replacement (regex) [, $redirect = FALSE [, $statusCode = 302 ]] )
+// Routes (REQUEST_URI): $config['routes'][ $match (regex) ] = array( $replacement (regex) [, $redirect = FALSE [, $status_code = 302 ]] )
 $config['routes']['#^/$#'] = array('/home');

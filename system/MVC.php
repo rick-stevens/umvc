@@ -5,16 +5,16 @@
 
 final class MVC
 {
-	const VERSION = 'rsmvc-1.3.1';
+	const VERSION = 'rsmvc-1.4.0';
 
 	public static $config = array();
 	public static $stats = array(
 		'timer' => 0,
 		'queries' => 0,
-		'queryTimer' => 0
+		'query_timer' => 0
 	);
 
-	private static $_errorCodes = array(
+	private static $_error_codes = array(
 		400 => 'Bad Request',
 		401 => 'Unauthorized',
 		403 => 'Forbidden',
@@ -25,7 +25,7 @@ final class MVC
 	// Static class, no need to create instances
 	private function __construct() {}
 
-	public static function autoload($className)
+	public static function autoload($class_name)
 	{
 		// Note the missing controllers folder, these are loaded manually in self::init()
 		$directories = array(
@@ -34,16 +34,16 @@ final class MVC
 		);
 
 		foreach ($directories as $dir)
-			if (file_exists($dir . $className . '.php')) {
-				require_once $dir . $className . '.php';
+			if (file_exists($dir . $class_name . '.php')) {
+				require_once $dir . $class_name . '.php';
 				return;
 			}
 	}
 
 	// Creates a local redirect
-	public static function redirect($location, $statusCode = 302)
+	public static function redirect($location, $status_code = 302)
 	{
-		header('Location: ' . self::$config['root'] . $location, TRUE, $statusCode);
+		header('Location: //' . self::$config['root'] . $location, TRUE, $status_code);
 		exit;
 	}
 
@@ -61,20 +61,20 @@ final class MVC
 	}
 
 	// Prints an error page
-	// If $errorMessage is not set, /app/views/errorPage.php will print one based on the $errorCode
-	public static function errorPage($errorCode, $errorMessage = NULL)
+	// If $error_message is not set, /app/views/errorPage.php will try print one based on the $error_code
+	public static function errorPage($error_code, $error_message = NULL)
 	{
-		$errorDescription = self::$_errorCodes[$errorCode];
-		$serverProtocol = isset($_SERVER['SERVER_PROTOCOL']) ? $_SERVER['SERVER_PROTOCOL'] : 'HTTP/1.1';
+		$error_description = self::$_error_codes[$error_code];
+		$server_protocol = isset($_SERVER['SERVER_PROTOCOL']) ? $_SERVER['SERVER_PROTOCOL'] : 'HTTP/1.0';
 
-		header($serverProtocol . ' ' . $errorCode . ' ' . $errorDescription, TRUE, $errorCode);
+		header($server_protocol . ' ' . $error_code . ' ' . $error_description, TRUE, $error_code);
 
 		$view = new View;
 
 		$view->save('error', array(
-			'code' => $errorCode,
-			'description' => $errorDescription,
-			'message' => $errorMessage
+			'code' => $error_code,
+			'description' => $error_description,
+			'message' => $error_message
 		));
 
 		$view->display('errorPage.php');
@@ -106,35 +106,35 @@ final class MVC
 		}
 
 		// Handle Apache error documents (see /.htaccess)
-		if (isset($_GET['_errorPage']) && array_key_exists($_GET['_errorPage'], self::$_errorCodes))
-			self::errorPage($_GET['_errorPage']);
+		if (isset($_GET['_error_page']) && array_key_exists($_GET['_error_page'], self::$_error_codes))
+			self::errorPage($_GET['_error_page']);
 
 		// Separate URL from query string
 		$url = explode('?', $_SERVER['REQUEST_URI'], 2);
-		$url = $routedUrl = strtolower($url[0]);
+		$url = $routed_url = strtolower($url[0]);
 
 		// Compare any routes to the URL
 		if (isset(self::$config['routes']))
 			foreach (self::$config['routes'] as $match => $route)
 				if (preg_match($match, $url)) {
-					$routedUrl = preg_replace($match, $route[0], $url);
+					$routed_url = preg_replace($match, $route[0], $url);
 
 					// Handle redirects
 					if (isset($route[1]) && $route[1])
 						if (isset($route[2]))
-							self::redirect($routedUrl, $route[2]);
+							self::redirect($routed_url, $route[2]);
 						else
-							self::redirect($routedUrl);
+							self::redirect($routed_url);
 
 					break;
 				}
 
 		// Manual multiple slash error (because explode() doesn't separate empty segments)
-		if (strpos($routedUrl, '//') !== FALSE)
+		if (strpos($routed_url, '//') !== FALSE)
 			self::errorPage(404);
 
-		// Explode the real URL into segments
-		$args = explode('/', trim($routedUrl, '/'));
+		// Explode the actual URL into segments
+		$args = explode('/', trim($routed_url, '/'));
 		$controller = array_shift($args);
 
 		// When there's no method supplied, fall back to the $controller->index() method
@@ -145,6 +145,12 @@ final class MVC
 			require_once ROOT . 'app/controllers/' . $controller . '.php';
 
 			if (class_exists($controller, FALSE) && method_exists($controller, $method)) {
+				$reflector = new ReflectionClass($controller);
+
+				// Throw 404 if there are uncaught parameters
+				if (count($args) > $reflector->getMethod($method)->getNumberOfParameters())
+					self::errorPage(404);
+
 				call_user_func_array(array(new $controller, $method), $args);
 				return;
 			}

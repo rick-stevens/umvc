@@ -2,11 +2,11 @@
  ## rsmvc.googlecode.com ##
 ##########################
 
-ErrorDocument 400 /index.php?_errorPage=400
-ErrorDocument 401 /index.php?_errorPage=401
-ErrorDocument 403 /index.php?_errorPage=403
-ErrorDocument 404 /index.php?_errorPage=404
-ErrorDocument 500 /index.php?_errorPage=500
+ErrorDocument 400 /index.php?_error_page=400
+ErrorDocument 401 /index.php?_error_page=401
+ErrorDocument 403 /index.php?_error_page=403
+ErrorDocument 404 /index.php?_error_page=404
+ErrorDocument 500 /index.php?_error_page=500
 
 <IfModule mod_autoindex.c>
 	# Disable directory listing (safety)

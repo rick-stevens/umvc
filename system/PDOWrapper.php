@@ -7,9 +7,9 @@ class PDOWrapper extends PDO
 {
 	public function query($statement)
 	{
-		$startTime = microtime(TRUE);
+		$start_time = microtime(TRUE);
 		$return = parent::query($statement);
-		MVC::$stats['queryTimer'] += microtime(TRUE) - $startTime;
+		MVC::$stats['query_timer'] += microtime(TRUE) - $start_time;
 		MVC::$stats['queries']++;
 
 		return $return;
@@ -17,9 +17,9 @@ class PDOWrapper extends PDO
 
 	public function exec($statement)
 	{
-		$startTime = microtime(TRUE);
+		$start_time = microtime(TRUE);
 		$return = parent::exec($statement);
-		MVC::$stats['queryTimer'] += microtime(TRUE) - $startTime;
+		MVC::$stats['query_timer'] += microtime(TRUE) - $start_time;
 		MVC::$stats['queries']++;
 
 		return $return;
@@ -27,9 +27,9 @@ class PDOWrapper extends PDO
 
 	public function lastInsertId($name = NULL)
 	{
-		$startTime = microtime(TRUE);
+		$start_time = microtime(TRUE);
 		$return = parent::lastInsertId($name);
-		MVC::$stats['queryTimer'] += microtime(TRUE) - $startTime;
+		MVC::$stats['query_timer'] += microtime(TRUE) - $start_time;
 		MVC::$stats['queries']++;
 
 		return $return;
