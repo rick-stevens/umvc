@@ -28,53 +28,52 @@ if ( ! isset($error['message']))
 		<style>
 			* {
 				margin: 0;
-				line-height: 1;
+				line-height: 1.5;
 			}
 
 			html {
-				padding: 6em 1em;
 				font-family: sans-serif;
-				font-size: 1.5em;
-				color: #555;
 				text-align: center;
-				background-color: #f4f4f4;
+				color: #888;
+			}
+
+			body {
+				position: absolute;
+				top: 50%;
+				left: 5%;
+				margin-top: -52px;
+				width: 90%;
 			}
 
 			h1 {
-				font-size: 3em;
+				font-size: 2em;
 				font-weight: 400;
 				letter-spacing: -.05em;
-			}
-
-			p {
-				margin: 1em 0;
-				line-height: 1.4;
+				color: #555;
 			}
 
 			span {
-				color: #999;
+				color: #ccc;
+			}
+
+			p {
+				margin-bottom: .5em;
 			}
 
 			a {
-				color: #428bca;
 				text-decoration: none;
+				color: #39C;
 			}
 
-			a:hover,
-			a:focus {
-				text-decoration: underline;
-			}
-
-			@media only screen and (max-width: 768px) {
-				html {
-					font-size: 1em;
+				a:hover,
+				a:focus {
+					text-decoration: underline;
 				}
-			}
 		</style>
 	</head>
 	<body>
 		<h1><span><?php echo $error['code']; ?></span> <?php echo $error['description']; ?></h1>
 		<p><?php echo htmlspecialchars($error['message']); ?></p>
-		<small><a href="//<?php echo $config['root']; ?>"><?php echo $config['root']; ?></a></small>
+		<small><a href="//<?php echo $config['root']; ?>/"><?php echo $config['root']; ?></a></small>
 	</body>
 </html>
