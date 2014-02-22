@@ -13,6 +13,7 @@ class View
 	{
 		$replacements = array(
 			'[#version#]' => MVC::VERSION,
+			'[#mode#]' => MVC::$stats['mode'],
 			'[#queries#]' => MVC::$stats['queries'],
 			'[#timer#]' => round((microtime(TRUE) - MVC::$stats['timer']) * 1000),
 			'[#query_timer#]' => round(MVC::$stats['query_timer'] * 1000)

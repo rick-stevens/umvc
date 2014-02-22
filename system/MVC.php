@@ -9,6 +9,7 @@ final class MVC
 
 	public static $config = array();
 	public static $stats = array(
+		'mode' => 'production',
 		'timer' => 0,
 		'queries' => 0,
 		'query_timer' => 0
@@ -94,11 +95,20 @@ final class MVC
 		require_once ROOT . 'app/configs/config.php';
 		self::$config = $config;
 
-		if (self::$config['development']) {
-			error_reporting(E_ALL);
-			ini_set('display_errors', 'on');
-			ini_set('log_errors', 'off');
-		} else {
+		// Check if host matches a production host to disable error logging and enable error display
+		if (isset(self::$config['development_hosts']))
+			foreach (self::$config['development_hosts'] as $host)
+				if (preg_match($host, $_SERVER['HTTP_HOST'])) {
+					self::$stats['mode'] = 'development';
+					error_reporting(E_ALL);
+					ini_set('display_errors', 'on');
+					ini_set('log_errors', 'off');
+
+					break;
+				}
+
+		// Default error logging
+		if (self::$stats['mode'] == 'production') {
 			error_reporting(E_ALL);
 			ini_set('display_errors', 'off');
 			ini_set('log_errors', 'on');
