@@ -5,11 +5,11 @@
 
 final class MVC
 {
-	const VERSION = 'rsmvc-1.4.1';
+	const VERSION = 'rsmvc-1.4.2';
 
 	public static $config = array();
 	public static $stats = array(
-		'mode' => 'production',
+		'mode' => NULL,
 		'timer' => 0,
 		'queries' => 0,
 		'query_timer' => 0
@@ -95,20 +95,14 @@ final class MVC
 		require_once ROOT . 'app/configs/config.php';
 		self::$config = $config;
 
-		// Check if host matches a production host to disable error logging and enable error display
-		if (isset(self::$config['development_hosts']))
-			foreach (self::$config['development_hosts'] as $host)
-				if (preg_match($host, $_SERVER['HTTP_HOST'])) {
-					self::$stats['mode'] = 'development';
-					error_reporting(E_ALL);
-					ini_set('display_errors', 'on');
-					ini_set('log_errors', 'off');
-
-					break;
-				}
-
-		// Default error logging
-		if (self::$stats['mode'] == 'production') {
+		// Check if HTTP_HOST matches a development host to disable log_errors and enable display_errors
+		if (isset(self::$config['development_hosts']) && in_array($_SERVER['HTTP_HOST'], self::$config['development_hosts'])) {
+			self::$stats['mode'] = 'development';
+			error_reporting(E_ALL);
+			ini_set('display_errors', 'on');
+			ini_set('log_errors', 'off');
+		} else {
+			self::$stats['mode'] = 'production';
 			error_reporting(E_ALL);
 			ini_set('display_errors', 'off');
 			ini_set('log_errors', 'on');

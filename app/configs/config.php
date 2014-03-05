@@ -10,8 +10,7 @@
 $config['root'] = $_SERVER['HTTP_HOST'];
 
 // (optional) If match: display_errors, else: log_errors (/system/tmp/logs/error.log)
-// array( $host (regex) [, $host (regex) [, etc. ]] )
-$config['development_hosts'] = array('#localhost$#');
+#$config['development_hosts'] = array('localhost');
 
 // (optional) Uncomment these to enable database access in models through $this->db (PDO)
 #$config['db']['host'] = 'localhost';

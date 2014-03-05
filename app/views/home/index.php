@@ -1,5 +1,5 @@
 <!doctype html>
-<!-- #version# (#mode#): Page loaded in #timer# ms (#queries# database queries took #query_timer# ms) -->
+<!-- #version# (#mode# mode): Page loaded in #timer# ms (#queries# database queries took #query_timer# ms) -->
 <html lang="en">
 	<head>
 		<meta charset="utf-8">
