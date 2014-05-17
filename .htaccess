@@ -1,6 +1,6 @@
-  ##########################
- ## rsmvc.googlecode.com ##
-##########################
+  #########################
+ ## umvc.googlecode.com ##
+#########################
 
 ErrorDocument 400 /index.php?_error_page=400
 ErrorDocument 401 /index.php?_error_page=401

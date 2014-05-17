@@ -1,7 +1,7 @@
 <?php
-  //////////////////////////
- // rsmvc.googlecode.com //
-//////////////////////////
+  /////////////////////////
+ // umvc.googlecode.com //
+/////////////////////////
 
 // (optional) Override the locale for date formatting, etc.
 #setlocale(LC_ALL, 'en_US.UTF-8');

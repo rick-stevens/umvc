@@ -1,11 +1,11 @@
 <?php
-  //////////////////////////
- // rsmvc.googlecode.com //
-//////////////////////////
+  /////////////////////////
+ // umvc.googlecode.com //
+/////////////////////////
 
 final class MVC
 {
-	const VERSION = 'rsmvc-1.4.3';
+	const VERSION = 'umvc-1.0.0';
 
 	public static $config = array();
 	public static $stats = array(
