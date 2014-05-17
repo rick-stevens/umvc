@@ -5,7 +5,7 @@
 
 final class MVC
 {
-	const VERSION = 'rsmvc-1.4.2';
+	const VERSION = 'rsmvc-1.4.3';
 
 	public static $config = array();
 	public static $stats = array(
