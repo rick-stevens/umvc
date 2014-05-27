@@ -1,6 +1,6 @@
 <?php
   /////////////////////////
- // umvc.googlecode.com //
+ // µMVC: git.io/PKKsQg //
 /////////////////////////
 
 class View

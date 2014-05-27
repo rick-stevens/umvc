@@ -1,11 +1,11 @@
 <?php
   /////////////////////////
- // umvc.googlecode.com //
+ // µMVC: git.io/PKKsQg //
 /////////////////////////
 
 final class MVC
 {
-	const VERSION = 'umvc-1.0.0';
+	const VERSION = 'µMVC v1.0.1';
 
 	public static $config = array();
 	public static $stats = array(

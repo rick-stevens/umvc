@@ -1,6 +1,6 @@
 <?php
   /////////////////////////
- // umvc.googlecode.com //
+ // µMVC: git.io/PKKsQg //
 /////////////////////////
 
 define('ROOT', dirname(__FILE__) . '/');

@@ -1,6 +1,6 @@
 <?php
   /////////////////////////
- // umvc.googlecode.com //
+ // µMVC: git.io/PKKsQg //
 /////////////////////////
 
 // (optional) Override the locale for date formatting, etc.
