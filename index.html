@@ -46,15 +46,17 @@
 <li>.htaccess privilege (<a href="http://httpd.apache.org/docs/current/mod/core.html#allowoverride">AllowOverride All</a>)</li>
 <li>Apache's <a href="http://httpd.apache.org/docs/current/mod/mod_rewrite.html">mod_rewrite</a>
 </li>
+<li>A (sub)domain</li>
 </ul><h2>
 <a name="installing" class="anchor" href="#installing"><span class="octicon octicon-link"></span></a>Installing</h2>
 
 <ol>
-<li>Download the latest copy of µMVC.</li>
+<li>
+<a href="https://github.com/rick-stevens/umvc/archive/master.zip">Download</a> the latest copy of µMVC.</li>
 <li>Make all subfolders of <code>/system/tmp/</code> writable (chmod).</li>
 <li>Modify <code>/app/configs/config.php</code> (optional).</li>
 </ol><h2>
-<a name="reference" class="anchor" href="#reference"><span class="octicon octicon-link"></span></a>Reference</h2>
+<a name="documentation" class="anchor" href="#documentation"><span class="octicon octicon-link"></span></a>Documentation</h2>
 
 <h3>
 <a name="controllers" class="anchor" href="#controllers"><span class="octicon octicon-link"></span></a>Controllers</h3>
@@ -79,7 +81,7 @@ Class syntax: <code>class ExampleName extends Controller {}</code>.</p>
 <p>File syntax: <code>/app/models/*.php</code>.<br>
 Class syntax: <code>class * extends Model {}</code>.</p>
 
-<p>Use <code>$this-&gt;db-&gt;</code> (<a href="http://php.net/manual/en/class.pdo.php">PDO instance</a>) for database access. Enable this by uncommenting the <code>$config['db']</code> lines in <code>/app/configs/config.php</code>.</p>
+<p>Use <code>$this-&gt;db</code> (<a href="http://php.net/manual/en/class.pdo.php">PDO instance</a>) for database access. Enable this by uncommenting the <code>$config['db']</code> lines in <code>/app/configs/config.php</code>.</p>
 
 <h3>
 <a name="views" class="anchor" href="#views"><span class="octicon octicon-link"></span></a>Views</h3>
@@ -110,7 +112,10 @@ To access the config variables in views use <code>$config</code> (instead of <co
 <code>MVC::strip( $input )</code> recursively trims and replaces multiple whitespace characters with a single space (useful for <code>$_GET</code> and <code>$_POST</code>).</li>
 <li>
 <code>MVC::errorPage( $error_code [, $message = NULL ] )</code> prints an error page. If <code>$message</code> is not set, <code>/app/views/errorPage.php</code> will try print one based on the <code>$error_code</code>.</li>
-</ul>
+</ul><h2>
+<a name="acknowledgements" class="anchor" href="#acknowledgements"><span class="octicon octicon-link"></span></a>Acknowledgements</h2>
+
+<p>µMVC is a project by <a href="https://rickstevens.nl/">Rick Stevens</a>.</p>
         </section>
 
         <footer>
