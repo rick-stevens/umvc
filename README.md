@@ -9,14 +9,15 @@ The goal is to provide a **bare essentials**, loosely coupled approach to the of
 * PHP >= 5.3.0 ([PDO](http://php.net/manual/en/book.pdo.php), [ReflectionClass](http://www.php.net/manual/en/class.reflectionclass.php) and [object model](http://php.net/manual/en/language.oop5.php))
 * .htaccess privilege ([AllowOverride All](http://httpd.apache.org/docs/current/mod/core.html#allowoverride))
 * Apache's [mod\_rewrite](http://httpd.apache.org/docs/current/mod/mod_rewrite.html)
+* A (sub)domain
 
 ## Installing
 
-1. Download the latest copy of µMVC.
+1. [Download](https://github.com/rick-stevens/umvc/archive/master.zip) the latest copy of µMVC.
 2. Make all subfolders of `/system/tmp/` writable (chmod).
 3. Modify `/app/configs/config.php` (optional).
 
-## Reference
+## Documentation
 
 ### Controllers
 
@@ -34,7 +35,7 @@ Class syntax: `class ExampleName extends Controller {}`.
 File syntax: `/app/models/*.php`.  
 Class syntax: `class * extends Model {}`.
 
-Use `$this->db->` ([PDO instance](http://php.net/manual/en/class.pdo.php)) for database access. Enable this by uncommenting the `$config['db']` lines in `/app/configs/config.php`.
+Use `$this->db` ([PDO instance](http://php.net/manual/en/class.pdo.php)) for database access. Enable this by uncommenting the `$config['db']` lines in `/app/configs/config.php`.
 
 ### Views
 
@@ -54,3 +55,7 @@ The following 4 replacements only work through the view's `display()` method and
 * `MVC::redirect( $location [, $status_code = 302 ] )` creates a local redirect. (`$location` format: "/link/to/page")
 * `MVC::strip( $input )` recursively trims and replaces multiple whitespace characters with a single space (useful for `$_GET` and `$_POST`).
 * `MVC::errorPage( $error_code [, $message = NULL ] )` prints an error page. If `$message` is not set, `/app/views/errorPage.php` will try print one based on the `$error_code`.
+
+## Acknowledgements
+
+µMVC is a project by [Rick Stevens](https://rickstevens.nl/).
