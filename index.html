@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset='utf-8'>
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <link href='https://fonts.googleapis.com/css?family=Chivo:900' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen" />
+    <link rel="stylesheet" type="text/css" href="stylesheets/pygment_trac.css" media="screen" />
+    <link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print" />
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <title>µMVC by rick-stevens</title>
+  </head>
+
+  <body>
+    <div id="container">
+      <div class="inner">
+
+        <header>
+          <h1>µMVC</h1>
+          <h2>Bare Essentials PHP5 Framework</h2>
+        </header>
+
+        <section id="downloads" class="clearfix">
+          <a href="https://github.com/rick-stevens/umvc/zipball/master" id="download-zip" class="button"><span>Download .zip</span></a>
+          <a href="https://github.com/rick-stevens/umvc/tarball/master" id="download-tar-gz" class="button"><span>Download .tar.gz</span></a>
+          <a href="https://github.com/rick-stevens/umvc" id="view-on-github" class="button"><span>View on GitHub</span></a>
+        </section>
+
+        <hr>
+
+        <section id="main_content">
+          <h1>
+<a name="%C2%B5mvc" class="anchor" href="#%C2%B5mvc"><span class="octicon octicon-link"></span></a>µMVC</h1>
+
+<p>The goal is to provide a <strong>bare essentials</strong>, loosely coupled approach to the often bulky solutions like CakePHP, Symfony and even CodeIgniter.</p>
+
+<p>µMVC comes with one easy config file, optional PDO database connection and just three helper methods. All while still <strong>providing core features</strong> like view caching, custom URL routing and error pages.</p>
+
+<h2>
+<a name="requirements" class="anchor" href="#requirements"><span class="octicon octicon-link"></span></a>Requirements</h2>
+
+<ul>
+<li>PHP &gt;= 5.3.0 (<a href="http://php.net/manual/en/book.pdo.php">PDO</a>, <a href="http://www.php.net/manual/en/class.reflectionclass.php">ReflectionClass</a> and <a href="http://php.net/manual/en/language.oop5.php">object model</a>)</li>
+<li>.htaccess privilege (<a href="http://httpd.apache.org/docs/current/mod/core.html#allowoverride">AllowOverride All</a>)</li>
+<li>Apache's <a href="http://httpd.apache.org/docs/current/mod/mod_rewrite.html">mod_rewrite</a>
+</li>
+</ul><h2>
+<a name="installing" class="anchor" href="#installing"><span class="octicon octicon-link"></span></a>Installing</h2>
+
+<ol>
+<li>Download the latest copy of µMVC.</li>
+<li>Make all subfolders of <code>/system/tmp/</code> writable (chmod).</li>
+<li>Modify <code>/app/configs/config.php</code> (optional).</li>
+</ol><h2>
+<a name="reference" class="anchor" href="#reference"><span class="octicon octicon-link"></span></a>Reference</h2>
+
+<h3>
+<a name="controllers" class="anchor" href="#controllers"><span class="octicon octicon-link"></span></a>Controllers</h3>
+
+<p>File syntax: <code>/app/controllers/examplename.php</code> (lowercase filename).<br>
+Class syntax: <code>class ExampleName extends Controller {}</code>.</p>
+
+<ul>
+<li>
+<code>$this-&gt;view-&gt;save( $key [, $value = NULL ] )</code> saves a view variable (or set of variables when <code>$key</code> is an associative array).</li>
+<li>
+<code>$this-&gt;view-&gt;display( $file_name [, $caching = FALSE [, $cache_id = NULL ]] )</code> prints the view upon destruct.</li>
+<li>
+<code>$this-&gt;view-&gt;fetch( $file_name [, $caching = FALSE [, $cache_id = NULL ]] )</code> returns the view.</li>
+<li>
+<code>$this-&gt;view-&gt;isCached( $file_name [, $cache_id = NULL ] )</code> checks if the view is cached.</li>
+<li>
+<code>$this-&gt;view-&gt;clearCache( [ $file_name = NULL [, $cache_id = NULL ]] )</code> deletes the given view's cache or entire cache directory.</li>
+</ul><h3>
+<a name="models" class="anchor" href="#models"><span class="octicon octicon-link"></span></a>Models</h3>
+
+<p>File syntax: <code>/app/models/*.php</code>.<br>
+Class syntax: <code>class * extends Model {}</code>.</p>
+
+<p>Use <code>$this-&gt;db-&gt;</code> (<a href="http://php.net/manual/en/class.pdo.php">PDO instance</a>) for database access. Enable this by uncommenting the <code>$config['db']</code> lines in <code>/app/configs/config.php</code>.</p>
+
+<h3>
+<a name="views" class="anchor" href="#views"><span class="octicon octicon-link"></span></a>Views</h3>
+
+<p>File syntax: <code>/app/views/*.php</code>.<br>
+To access the config variables in views use <code>$config</code> (instead of <code>MVC::$config</code>).</p>
+
+<p>The following 4 replacements only work through the view's <code>display()</code> method and will bypass any caching:</p>
+
+<ul>
+<li>
+<code>#version#</code> is replaced by the framework's version name.</li>
+<li>
+<code>#timer#</code> is replaced by the page's total load time in seconds.</li>
+<li>
+<code>#queries#</code> is replaced by the amount of database queries processed.</li>
+<li>
+<code>#query_timer#</code> is replaced by the total query load time in seconds.</li>
+</ul><h3>
+<a name="global-helpers" class="anchor" href="#global-helpers"><span class="octicon octicon-link"></span></a>Global helpers</h3>
+
+<ul>
+<li>
+<code>MVC::$config</code> accesses the config variables set in <code>/app/configs/config.php</code>.</li>
+<li>
+<code>MVC::redirect( $location [, $status_code = 302 ] )</code> creates a local redirect. (<code>$location</code> format: "/link/to/page")</li>
+<li>
+<code>MVC::strip( $input )</code> recursively trims and replaces multiple whitespace characters with a single space (useful for <code>$_GET</code> and <code>$_POST</code>).</li>
+<li>
+<code>MVC::errorPage( $error_code [, $message = NULL ] )</code> prints an error page. If <code>$message</code> is not set, <code>/app/views/errorPage.php</code> will try print one based on the <code>$error_code</code>.</li>
+</ul>
+        </section>
+
+        <footer>
+          µMVC is maintained by <a href="https://github.com/rick-stevens">rick-stevens</a><br>
+          This page was generated by <a href="http://pages.github.com">GitHub Pages</a>. Tactile theme by <a href="https://twitter.com/jasonlong">Jason Long</a>.
+        </footer>
+
+        
+      </div>
+    </div>
+  </body>
+</html>
