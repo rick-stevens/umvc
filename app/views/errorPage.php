@@ -32,9 +32,14 @@ if ( ! isset($error['message']))
 			}
 
 			html {
-				font-family: sans-serif;
-				text-align: center;
+				height: 100%;
+				-webkit-background: radial-gradient(#fff, #eee);
+				background: radial-gradient(#fff, #eee);
 				color: #888;
+				font-family: "Helvetica Neue", Helvetica, sans-serif;
+				font-weight: 300;
+				text-align: center;
+				-webkit-font-smoothing: antialiased;
 			}
 
 			body {
@@ -46,14 +51,13 @@ if ( ! isset($error['message']))
 			}
 
 			h1 {
-				font-size: 2em;
-				font-weight: 400;
-				letter-spacing: -.05em;
 				color: #555;
+				letter-spacing: -.05em;
 			}
 
 			span {
 				color: #ccc;
+				font-weight: 300;
 			}
 
 			p {
@@ -65,10 +69,10 @@ if ( ! isset($error['message']))
 				color: #39C;
 			}
 
-				a:hover,
-				a:focus {
-					text-decoration: underline;
-				}
+			a:hover,
+			a:focus {
+				text-decoration: underline;
+			}
 		</style>
 	</head>
 	<body>
