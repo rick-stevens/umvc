@@ -38,6 +38,8 @@
 
 <p>µMVC comes with one easy config file, optional PDO database connection and just three helper methods. All while still <strong>providing core features</strong> like view caching, custom URL routing and error pages.</p>
 
+<p><a href="http://rick-stevens.github.io/umvc/">http://rick-stevens.github.io/umvc/</a></p>
+
 <h2>
 <a name="requirements" class="anchor" href="#requirements"><span class="octicon octicon-link"></span></a>Requirements</h2>
 
@@ -46,13 +48,13 @@
 <li>.htaccess privilege (<a href="http://httpd.apache.org/docs/current/mod/core.html#allowoverride">AllowOverride All</a>)</li>
 <li>Apache's <a href="http://httpd.apache.org/docs/current/mod/mod_rewrite.html">mod_rewrite</a>
 </li>
-<li>A (sub)domain</li>
+<li>A (sub)domain name</li>
 </ul><h2>
 <a name="installing" class="anchor" href="#installing"><span class="octicon octicon-link"></span></a>Installing</h2>
 
 <ol>
 <li>
-<a href="https://github.com/rick-stevens/umvc/archive/master.zip">Download</a> the latest copy of µMVC.</li>
+<a href="https://github.com/rick-stevens/umvc/archive/master.zip">Download</a> and extract the latest copy of µMVC.</li>
 <li>Make all subfolders of <code>/system/tmp/</code> writable (chmod).</li>
 <li>Modify <code>/app/configs/config.php</code> (optional).</li>
 </ol><h2>
@@ -93,13 +95,15 @@ To access the config variables in views use <code>$config</code> (instead of <co
 
 <ul>
 <li>
-<code>#version#</code> is replaced by the framework's version name.</li>
+<code>#version#</code> is replaced by the framework's release name (<code>µMVC vx.x.x</code>).</li>
 <li>
-<code>#timer#</code> is replaced by the page's total load time in seconds.</li>
+<code>#mode#</code> is replaced by the rendering mode (<code>production</code> or <code>development</code>).</li>
+<li>
+<code>#timer#</code> is replaced by the page's total load time in milliseconds.</li>
 <li>
 <code>#queries#</code> is replaced by the amount of database queries processed.</li>
 <li>
-<code>#query_timer#</code> is replaced by the total query load time in seconds.</li>
+<code>#query_timer#</code> is replaced by the total database query load time in milliseconds.</li>
 </ul><h3>
 <a name="global-helpers" class="anchor" href="#global-helpers"><span class="octicon octicon-link"></span></a>Global helpers</h3>
 
@@ -107,7 +111,7 @@ To access the config variables in views use <code>$config</code> (instead of <co
 <li>
 <code>MVC::$config</code> accesses the config variables set in <code>/app/configs/config.php</code>.</li>
 <li>
-<code>MVC::redirect( $location [, $status_code = 302 ] )</code> creates a local redirect. (<code>$location</code> format: "/link/to/page")</li>
+<code>MVC::redirect( $location [, $status_code = 302 ] )</code> creates a local redirect. (<code>$location</code> format: <em>/link/to/page</em>)</li>
 <li>
 <code>MVC::strip( $input )</code> recursively trims and replaces multiple whitespace characters with a single space (useful for <code>$_GET</code> and <code>$_POST</code>).</li>
 <li>
