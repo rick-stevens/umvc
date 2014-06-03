@@ -33,7 +33,7 @@ if ( ! isset($error['message']))
 
 			html {
 				height: 100%;
-				-webkit-background: radial-gradient(#fff, #eee);
+				background: -webkit-radial-gradient(#fff, #eee);
 				background: radial-gradient(#fff, #eee);
 				color: #888;
 				font-family: "Helvetica Neue", Helvetica, sans-serif;
