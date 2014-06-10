@@ -5,7 +5,7 @@
 
 final class MVC
 {
-	const VERSION = 'µMVC v1.0.3';
+	const VERSION = 'µMVC v1.0.4';
 
 	public static $config = array();
 	public static $stats = array(
