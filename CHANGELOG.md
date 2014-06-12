@@ -1,9 +1,11 @@
 ### HEAD
 
-* Renaming `errorPage` globally to `error`.
+### v1.0.4 (2014-06-12)
+
+* Globally renaming `errorPage` to `error`.
 * Disabling caching in development mode.
-* Dropping support for Windows XP; removing html5shiv.
-* Dropping support for Windows XP; bumping Browse Happy notification to `[if lt IE 9]`.
+* Dropping Windows XP support; removing html5shiv.
+* Dropping Windows XP support; bumping Browse Happy notification to `[if lt IE 9]`.
 
 ### v1.0.3 (2014-06-03)
 
