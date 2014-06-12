@@ -19,7 +19,7 @@ class Database
 					MVC::$config['db']['password']
 				);
 			} catch (Exception $e) {
-				MVC::errorPage(500, 'Database error: ' . $e->getMessage());
+				MVC::error(500, 'Database error: ' . $e->getMessage());
 			}
 
 			// Unset db config for security

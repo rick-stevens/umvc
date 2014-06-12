@@ -2,11 +2,11 @@
  ## µMVC: git.io/PKKsQg ##
 #########################
 
-ErrorDocument 400 /index.php?_error_page=400
-ErrorDocument 401 /index.php?_error_page=401
-ErrorDocument 403 /index.php?_error_page=403
-ErrorDocument 404 /index.php?_error_page=404
-ErrorDocument 500 /index.php?_error_page=500
+ErrorDocument 400 /index.php?_error=400
+ErrorDocument 401 /index.php?_error=401
+ErrorDocument 403 /index.php?_error=403
+ErrorDocument 404 /index.php?_error=404
+ErrorDocument 500 /index.php?_error=500
 
 <IfModule mod_autoindex.c>
 	# Disable directory listing (safety)

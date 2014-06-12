@@ -1,11 +1,14 @@
 ### HEAD
 
+* Renaming `errorPage` globally to `error`.
+* Disabling caching in development mode.
+* Dropping support for Windows XP; removing html5shiv.
 * Dropping support for Windows XP; bumping Browse Happy notification to `[if lt IE 9]`.
 
 ### v1.0.3 (2014-06-03)
 
 * Fixed `errorPage.php` CSS typo.
-* Re-adding empty directories `cache``logs``img` and `js`.
+* Re-adding empty directories `cache` `logs` `img` and `js`.
 
 ### v1.0.2 (2014-06-03)
 

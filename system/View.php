@@ -51,7 +51,7 @@ class View
 	// Returns a view
 	public function fetch($_file_name, $_caching = FALSE, $_cache_id = NULL)
 	{
-		if ($_caching && $this->isCached($_file_name, $_cache_id)) {
+		if ($_caching && MVC::$stats['mode'] != 'development' && $this->isCached($_file_name, $_cache_id)) {
 			$output = @file_get_contents(ROOT . 'system/tmp/cache/' . md5($_file_name . $_cache_id));
 		} else {
 			extract($this->_vars);
@@ -64,7 +64,7 @@ class View
 			ob_end_clean();
 
 			if ($_caching) {
-				$handle = @fopen(ROOT . 'system/tmp/cache/' . md5($_file_name . $_cache_id), 'w') or MVC::errorPage(500, 'Couldn\'t write to cache folder.');
+				$handle = @fopen(ROOT . 'system/tmp/cache/' . md5($_file_name . $_cache_id), 'w') or MVC::error(500, 'Couldn\'t write to cache folder.');
 				fwrite($handle, $output);
 				fclose($handle);
 			}

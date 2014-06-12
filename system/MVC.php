@@ -5,7 +5,7 @@
 
 final class MVC
 {
-	const VERSION = 'µMVC v1.0.4';
+	const VERSION = 'v1.0.4';
 
 	public static $config = array();
 	public static $stats = array(
@@ -62,8 +62,8 @@ final class MVC
 	}
 
 	// Prints an error page
-	// If $error_message is not set, /app/views/errorPage.php will try print one based on the $error_code
-	public static function errorPage($error_code, $error_message = NULL)
+	// If $error_message is not set, /app/views/error.php will try print one based on the $error_code
+	public static function error($error_code, $error_message = NULL)
 	{
 		$error_description = self::$_error_codes[$error_code];
 		$server_protocol = isset($_SERVER['SERVER_PROTOCOL']) ? $_SERVER['SERVER_PROTOCOL'] : 'HTTP/1.0';
@@ -78,7 +78,7 @@ final class MVC
 			'message' => $error_message
 		));
 
-		$view->display('errorPage.php');
+		$view->display('error.php');
 
 		exit;
 	}
@@ -110,8 +110,8 @@ final class MVC
 		}
 
 		// Handle Apache error documents (see /.htaccess)
-		if (isset($_GET['_error_page']) && array_key_exists($_GET['_error_page'], self::$_error_codes))
-			self::errorPage($_GET['_error_page']);
+		if (isset($_GET['_error']) && array_key_exists($_GET['_error'], self::$_error_codes))
+			self::error($_GET['_error']);
 
 		// Separate URL from query string
 		$url = explode('?', $_SERVER['REQUEST_URI'], 2);
@@ -135,7 +135,7 @@ final class MVC
 
 		// Manual multiple slash error (because explode() doesn't separate empty segments)
 		if (strpos($routed_url, '//') !== FALSE)
-			self::errorPage(404);
+			self::error(404);
 
 		// Explode the actual URL into segments
 		$args = explode('/', trim($routed_url, '/'));
@@ -151,9 +151,9 @@ final class MVC
 			if (class_exists($controller, FALSE) && method_exists($controller, $method)) {
 				$reflector = new ReflectionClass($controller);
 
-				// Throw 404 if there are uncaught parameters
+				// Throw a 404 if there are uncaught parameters
 				if (count($args) > $reflector->getMethod($method)->getNumberOfParameters())
-					self::errorPage(404);
+					self::error(404);
 
 				call_user_func_array(array(new $controller, $method), $args);
 				return;
@@ -161,6 +161,6 @@ final class MVC
 		}
 
 		// No controller and/or method was found; throw a 404
-		self::errorPage(404);
+		self::error(404);
 	}
 }

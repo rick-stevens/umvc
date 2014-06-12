@@ -19,7 +19,7 @@ if ( ! isset($error['message']))
 	}
 ?>
 <!doctype html>
-<!-- #version# (#mode# mode): Page loaded in #timer# ms (#queries# database queries took #query_timer# ms) -->
+<!-- µMVC #version# (#mode#): page loaded in #timer# ms (#queries# database queries took #query_timer# ms) -->
 <html lang="en">
 	<head>
 		<meta charset="utf-8">

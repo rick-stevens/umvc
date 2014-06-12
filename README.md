@@ -57,7 +57,7 @@ The following 4 replacements only work through the view's `display()` method and
 * `MVC::$config` accesses the config variables set in `/app/configs/config.php`.
 * `MVC::redirect( $location [, $status_code = 302 ] )` creates a local redirect. (`$location` format: */link/to/page*)
 * `MVC::strip( $input )` recursively trims and replaces multiple whitespace characters with a single space (useful for `$_GET` and `$_POST`).
-* `MVC::errorPage( $error_code [, $message = NULL ] )` prints an error page. If `$message` is not set, `/app/views/errorPage.php` will try print one based on the `$error_code`.
+* `MVC::error( $error_code [, $message = NULL ] )` prints an error page. If `$message` is not set, `/app/views/error.php` will try print one based on the `$error_code`.
 
 ## Acknowledgements
 
