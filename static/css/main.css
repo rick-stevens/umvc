@@ -3,26 +3,26 @@ html{font-family:sans-serif;-ms-text-size-adjust:100%;-webkit-text-size-adjust:1
 
 .clearfix:before,
 .clearfix:after {
-	content: ' ';
-	display: table;
+  content: ' ';
+  display: table;
 }
 
 .clearfix:after {
-	clear: both;
+  clear: both;
 }
 
 .browsehappy {
-	margin: 0;
-	padding: 1em;
-	background: #c00;
-	color: #fff;
-	text-align: center;
+  margin: 0;
+  padding: 1em;
+  background: #c00;
+  color: #fff;
+  text-align: center;
 }
 
-	.browsehappy a {
-		color: #fff;
-		text-decoration: underline;
-	}
+.browsehappy a {
+  color: #fff;
+  text-decoration: underline;
+}
 
 html {
 }

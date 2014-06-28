@@ -5,10 +5,10 @@
 
 class Model
 {
-	protected $db = NULL;
+  protected $db = NULL;
 
-	public function __construct()
-	{
-		$this->db = Database::getInstance();
-	}
+  public function __construct()
+  {
+    $this->db = Database::getInstance();
+  }
 }
