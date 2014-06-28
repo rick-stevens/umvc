@@ -1,0 +1,40 @@
+{
+  "name": "umvc",
+  "version": "1.0.4",
+  "homepage": "https://github.com/rick-stevens/umvc",
+  "description": "µMVC: Stripped-down, Bare Essentials PHP5 Framework",
+  "homepage": "http://rick-stevens.github.io/umvc/",
+  "author": "Rick Stevens",
+  "main": [
+    ".htaccess",
+    "index.php",
+    "robots.txt",
+    "app/configs/config.php",
+    "app/controllers/home.php",
+    "app/models/HomeModel.php",
+    "app/views/error.php",
+    "app/views/home/index.php",
+    "static/css/main.css",
+    "system/Controller.php",
+    "system/Database.php",
+    "system/MVC.php",
+    "system/Model.php",
+    "system/PDOWrapper.php",
+    "system/View.php"
+  ],
+  "keywords": [
+    "php",
+    "php5",
+    "mvc",
+    "model-view-controller",
+    "framework",
+    "minimal",
+    "light",
+    "simple",
+    "bare essentials"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "CHANGELOG.md"
+  ]
+}

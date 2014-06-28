@@ -43,9 +43,9 @@ class View
 	public function save($key, $value = NULL)
 	{
 		if (is_array($key))
-			$this->_vars = array_merge($this->_vars, $key);
+			return $this->_vars = array_merge($this->_vars, $key);
 		else
-			$this->_vars[$key] = $value;
+			return $this->_vars[$key] = $value;
 	}
 
 	// Returns a view
