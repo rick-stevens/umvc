@@ -46,7 +46,7 @@ To access the config variables in views use `$config` (instead of `MVC::$config`
 
 The following 4 replacements only work through the view's `display()` method and will bypass any caching:
 
-* `#version#` is replaced by the framework's release name (`vx.x.x`).
+* `#version#` is replaced by the framework's tag name (`x.x.x`).
 * `#mode#` is replaced by the rendering mode (`production` or `development`).
 * `#timer#` is replaced by the page's total load time in milliseconds.
 * `#queries#` is replaced by the amount of database queries processed.

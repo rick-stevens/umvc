@@ -52,17 +52,20 @@ class View
   public function fetch($_file_name, $_caching = FALSE, $_cache_id = NULL)
   {
     if ($_caching && MVC::$stats['mode'] != 'development' && $this->isCached($_file_name, $_cache_id)) {
+      // Fetch cached view if possible
       $output = @file_get_contents(ROOT . 'system/tmp/cache/' . md5($_file_name . $_cache_id));
     } else {
+      // Set view variables
       extract($this->_vars);
-
       $config = MVC::$config;
 
+      // Run output buffer
       ob_start();
       require ROOT . 'app/views/' . $_file_name;
       $output = ob_get_contents();
       ob_end_clean();
 
+      // Store cached view if enabled
       if ($_caching) {
         $handle = @fopen(ROOT . 'system/tmp/cache/' . md5($_file_name . $_cache_id), 'w') or MVC::error(500, 'Couldn\'t write to cache folder.');
         fwrite($handle, $output);

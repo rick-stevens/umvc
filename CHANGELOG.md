@@ -1,5 +1,8 @@
 ### HEAD
 
+* Idiomatic code: tabs to spaces (2)
+* View::save() now returns the passed value
+
 ### v1.0.4 (2014-06-12)
 
 * Globally renaming `errorPage` to `error`.
