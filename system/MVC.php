@@ -56,8 +56,10 @@ final class MVC
         $input[$k] = self::strip($v);
 
       return $input;
-    } else {
+    } elseif (is_string($input)) {
       return trim(preg_replace('#\s+#', ' ', $input));
+    } else {
+      return $input;
     }
   }
 
